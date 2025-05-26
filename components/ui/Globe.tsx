@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
 import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
 import ThreeGlobe from "three-globe";
 import { useThree, Object3DNode, Canvas, extend } from "@react-three/fiber";
@@ -95,6 +96,70 @@ export function Globe({ globeConfig, data }: WorldProps) {
     if (globeRef.current) {
       _buildData();
       _buildMaterial();
+      
+      // Prevención de errores de geometría NaN
+      const originalComputeBoundingSphere = THREE.BufferGeometry.prototype.computeBoundingSphere;
+      THREE.BufferGeometry.prototype.computeBoundingSphere = function() {
+        try {
+          const position = this.getAttribute('position');
+          // Verificar si la posición tiene valores válidos antes de calcular
+          if (position && position.array) {
+            let hasNaN = false;
+            for (let i = 0; i < position.array.length; i++) {
+              if (isNaN(position.array[i])) {
+                hasNaN = true;
+                break;
+              }
+            }
+            if (!hasNaN) {
+              originalComputeBoundingSphere.call(this);
+            } else {
+              // Si hay valores NaN, creamos una esfera límite por defecto
+              if (!this.boundingSphere) {
+                this.boundingSphere = new THREE.Sphere();
+              }
+              if (!this.boundingSphere.center) {
+                this.boundingSphere.center = new THREE.Vector3(0, 0, 0);
+              }
+              this.boundingSphere.radius = 1; // Radio por defecto seguro
+            }
+          } else {
+            // Si no hay posición, creamos una esfera límite por defecto
+            if (!this.boundingSphere) {
+              this.boundingSphere = new THREE.Sphere();
+            }
+            if (!this.boundingSphere.center) {
+              this.boundingSphere.center = new THREE.Vector3(0, 0, 0);
+            }
+            this.boundingSphere.radius = 1; // Radio por defecto seguro
+          }
+        } catch (e) {
+          console.warn('Error en computeBoundingSphere:', e);
+          // En caso de excepción, aseguramos que exista una esfera límite válida
+          if (!this.boundingSphere) {
+            this.boundingSphere = new THREE.Sphere();
+          }
+          if (!this.boundingSphere.center) {
+            this.boundingSphere.center = new THREE.Vector3(0, 0, 0);
+          }
+          this.boundingSphere.radius = 1;
+        }
+      };
+      
+      // Parcheamos también el método intersectsObject para mayor seguridad
+      const originalIntersectsObject = THREE.Frustum.prototype.intersectsObject;
+      THREE.Frustum.prototype.intersectsObject = function(object) {
+        try {
+          // Verificamos si el objeto es válido y tiene una geometría con boundingSphere
+          if (!object || !(object as any).geometry || !(object as any).geometry.boundingSphere) {
+            return false;
+          }
+          return originalIntersectsObject.call(this, object);
+        } catch (e) {
+          console.warn('Error en intersectsObject:', e);
+          return false;
+        }
+      };
     }
   }, [globeRef.current]);
 

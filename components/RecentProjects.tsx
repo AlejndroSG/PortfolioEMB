@@ -1,7 +1,7 @@
 "use client";
 
 import { FaLocationArrow } from "react-icons/fa6";
-import Image from "next/image";
+import OptimizedImage from "./ui/OptimizedImage";
 
 import { projects } from "@/data";
 import { PinContainer } from "./ui/Pin";
@@ -31,9 +31,9 @@ const RecentProjects = () => {
                   style={{ backgroundColor: "#13162D" }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-purple/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <Image src="/bg.png" alt="bgimg" fill sizes="100vw" style={{ objectFit: 'cover' }} className="transition-transform duration-700 group-hover:scale-110" />
+                  <OptimizedImage src="/bg.png" alt="bgimg" fill style={{ objectFit: 'cover' }} className="transition-transform duration-700 group-hover:scale-110" />
                 </div>
-                <Image
+                <OptimizedImage
                   src={item.img}
                   alt="cover"
                   width={300}
@@ -67,7 +67,7 @@ const RecentProjects = () => {
                         transform: `translateX(-${5 * index + 2}px)`,
                       }}
                     >
-                      <Image src={icon} alt="icon5" width={20} height={20} className="p-2" style={{ width: 'auto', height: 'auto' }} />
+                      <OptimizedImage src={icon} alt="icon5" width={20} height={20} className="p-2" style={{ width: 'auto', height: 'auto' }} />
                     </div>
                   ))}
                 </div>

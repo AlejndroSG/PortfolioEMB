@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { IoCopyOutline } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
 import { cn } from "@/lib/utils";
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
 import animationData from "@/data/confetti.json";
 
 import { BackgroundGradientAnimation } from "./GradientBg";
@@ -12,6 +12,9 @@ import { BackgroundGradientAnimation } from "./GradientBg";
 // animationData ya no es necesario
 import MagicButton from "../MagicButton";
 import GridGlobe from "./GridGlobe";
+
+// Importación dinámica de Lottie para evitar errores en SSR
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export const BentoGrid = ({
   className,
