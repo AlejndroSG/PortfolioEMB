@@ -11,15 +11,14 @@ import Experience from "@/components/Experience";
 import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
 import HomeButton from "@/components/ui/HomeButton";
-import CustomCursor from "@/components/ui/CustomCursor";
+// Cursor predeterminado del sistema - CustomCursor eliminado
 import FloatingParticles from "@/components/ui/FloatingParticles";
 import { AnimatedElement, StaggeredContainer, ParallaxElement, ScrollProgress } from "@/components/ui/ScrollAnimations";
 
 const Home = () => {
   return (
     <main className="relative bg-black-100 flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
-      {/* Cursor personalizado con efectos avanzados */}
-      <CustomCursor />
+      {/* Usando cursor predeterminado del sistema */}
       {/* Efecto de partu00edculas flotantes */}
       <FloatingParticles />
       

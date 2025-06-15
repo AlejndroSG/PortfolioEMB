@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
+import { useInView } from 'framer-motion';
 import { motion } from 'framer-motion';
 import countries from "@/data/globe.json";
 
@@ -47,8 +48,8 @@ interface WorldProps {
   data: GlobePoint[];
 }
 
-// Componente para renderizar el globo con SVG
-function GlobeObject({ globeConfig, data }: WorldProps) {
+// Componente para renderizar el globo con SVG (memoizado para mejor rendimiento)
+const GlobeObject = memo(function GlobeObject({ globeConfig, data }: WorldProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [rotation, setRotation] = useState(0);
   
@@ -211,10 +212,10 @@ function GlobeObject({ globeConfig, data }: WorldProps) {
       </svg>
     </div>
   );
-}
+})
 
-// Componente World exportable
-function World(props: WorldProps) {
+// Componente World exportable que solo se renderiza cuando está en la vista
+export function World(props: WorldProps) {
   return (
     <div className="world-container w-full h-full">
       <GlobeObject {...props} />
@@ -222,5 +223,4 @@ function World(props: WorldProps) {
   );
 }
 
-export { World };
 export type { GlobePoint, GlobeConfig };
