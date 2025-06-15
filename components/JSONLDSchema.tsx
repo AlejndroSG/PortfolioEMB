@@ -75,7 +75,8 @@ export default function JSONLDSchema({
   } : null;
   
   // Schemas a incluir
-  const schemas = [organizationSchema];
+  // Usamos Record<string, any> para permitir diferentes estructuras de esquema
+  const schemas: Record<string, any>[] = [organizationSchema];
   if (pageSchema) schemas.push(pageSchema);
 
   return (
