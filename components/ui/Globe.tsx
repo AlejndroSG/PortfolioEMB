@@ -1,370 +1,226 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
-import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
-import ThreeGlobe from "three-globe";
-import { useThree, Object3DNode, Canvas, extend } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import countries from "@/data/globe.json";
-declare module "@react-three/fiber" {
-  interface ThreeElements {
-    threeGlobe: Object3DNode<ThreeGlobe, typeof ThreeGlobe>;
-  }
-}
 
-extend({ ThreeGlobe });
-
-const RING_PROPAGATION_SPEED = 3;
-const aspect = 1.2;
-const cameraZ = 300;
-
-type Position = {
-  order: number;
+// Tipo para los datos de un arco en el globo
+interface GlobePoint {
+  arcID: string;
+  width?: number;
   startLat: number;
   startLng: number;
   endLat: number;
   endLng: number;
-  arcAlt: number;
   color: string;
-};
+  label?: string;
+}
 
-export type GlobeConfig = {
-  pointSize?: number;
+// Tipo para la configuración del globo
+interface GlobeConfig {
   globeColor?: string;
-  showAtmosphere?: boolean;
-  atmosphereColor?: string;
-  atmosphereAltitude?: number;
-  emissive?: string;
-  emissiveIntensity?: number;
-  shininess?: number;
-  polygonColor?: string;
   ambientLight?: string;
-  directionalLeftLight?: string;
-  directionalTopLight?: string;
-  pointLight?: string;
-  arcTime?: number;
-  arcLength?: number;
-  rings?: number;
-  maxRings?: number;
-  initialPosition?: {
-    lat: number;
-    lng: number;
-  };
+  polygonColor?: string;
+  glowColor?: string;
   autoRotate?: boolean;
-  autoRotateSpeed?: number;
-};
+  initialPosition?: { lat: number; lng: number };
+}
 
+// Tamaño del SVG
+const SVG_SIZE = 600;
+
+// Función para convertir lat/lng a coordenadas SVG
+function latLngToSvgPosition(lat: number, lng: number, radius: number): [number, number] {
+  // Convertir a radianes
+  const latRad = (90 - lat) * (Math.PI / 180);
+  const lngRad = (lng + 90) * (Math.PI / 180);
+  
+  // Calcular posición en el círculo
+  const x = SVG_SIZE/2 + radius * Math.sin(latRad) * Math.cos(lngRad);
+  const y = SVG_SIZE/2 + radius * Math.sin(latRad) * Math.sin(lngRad);
+  
+  return [x, y];
+}
+
+// Interfaz para los props del componente World
 interface WorldProps {
   globeConfig: GlobeConfig;
-  data: Position[];
+  data: GlobePoint[];
 }
 
-let numbersOfRings = [0];
-
-export function Globe({ globeConfig, data }: WorldProps) {
-  const [globeData, setGlobeData] = useState<
-    | {
-        size: number;
-        order: number;
-        color: (t: number) => string;
-        lat: number;
-        lng: number;
-      }[]
-    | null
-  >(null);
-
-  const globeRef = useRef<ThreeGlobe | null>(null);
-
-  const defaultProps = {
-    pointSize: 1,
-    atmosphereColor: "#ffffff",
-    showAtmosphere: true,
-    atmosphereAltitude: 0.1,
-    polygonColor: "rgba(255,255,255,0.7)",
-    globeColor: "#1d072e",
-    emissive: "#000000",
-    emissiveIntensity: 0.1,
-    shininess: 0.9,
-    arcTime: 2000,
-    arcLength: 0.9,
-    rings: 1,
-    maxRings: 3,
-    ...globeConfig,
-  };
-
+// Componente para renderizar el globo con SVG
+function GlobeObject({ globeConfig, data }: WorldProps) {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [rotation, setRotation] = useState(0);
+  
+  // Efecto para la rotación automática del globo
   useEffect(() => {
-    if (globeRef.current) {
-      _buildData();
-      _buildMaterial();
+    if (globeConfig.autoRotate) {
+      const interval = setInterval(() => {
+        setRotation(prev => (prev + 1) % 360);
+      }, 100);
       
-      // Prevención de errores de geometría NaN
-      const originalComputeBoundingSphere = THREE.BufferGeometry.prototype.computeBoundingSphere;
-      THREE.BufferGeometry.prototype.computeBoundingSphere = function() {
-        try {
-          const position = this.getAttribute('position');
-          // Verificar si la posición tiene valores válidos antes de calcular
-          if (position && position.array) {
-            let hasNaN = false;
-            for (let i = 0; i < position.array.length; i++) {
-              if (isNaN(position.array[i])) {
-                hasNaN = true;
-                break;
-              }
-            }
-            if (!hasNaN) {
-              originalComputeBoundingSphere.call(this);
-            } else {
-              // Si hay valores NaN, creamos una esfera límite por defecto
-              if (!this.boundingSphere) {
-                this.boundingSphere = new THREE.Sphere();
-              }
-              if (!this.boundingSphere.center) {
-                this.boundingSphere.center = new THREE.Vector3(0, 0, 0);
-              }
-              this.boundingSphere.radius = 1; // Radio por defecto seguro
-            }
-          } else {
-            // Si no hay posición, creamos una esfera límite por defecto
-            if (!this.boundingSphere) {
-              this.boundingSphere = new THREE.Sphere();
-            }
-            if (!this.boundingSphere.center) {
-              this.boundingSphere.center = new THREE.Vector3(0, 0, 0);
-            }
-            this.boundingSphere.radius = 1; // Radio por defecto seguro
-          }
-        } catch (e) {
-          console.warn('Error en computeBoundingSphere:', e);
-          // En caso de excepción, aseguramos que exista una esfera límite válida
-          if (!this.boundingSphere) {
-            this.boundingSphere = new THREE.Sphere();
-          }
-          if (!this.boundingSphere.center) {
-            this.boundingSphere.center = new THREE.Vector3(0, 0, 0);
-          }
-          this.boundingSphere.radius = 1;
-        }
-      };
-      
-      // Parcheamos también el método intersectsObject para mayor seguridad
-      const originalIntersectsObject = THREE.Frustum.prototype.intersectsObject;
-      THREE.Frustum.prototype.intersectsObject = function(object) {
-        try {
-          // Verificamos si el objeto es válido y tiene una geometría con boundingSphere
-          if (!object || !(object as any).geometry || !(object as any).geometry.boundingSphere) {
-            return false;
-          }
-          return originalIntersectsObject.call(this, object);
-        } catch (e) {
-          console.warn('Error en intersectsObject:', e);
-          return false;
-        }
-      };
+      return () => clearInterval(interval);
     }
-  }, [globeRef.current]);
-
-  const _buildMaterial = () => {
-    if (!globeRef.current) return;
-
-    const globeMaterial = globeRef.current.globeMaterial() as unknown as {
-      color: Color;
-      emissive: Color;
-      emissiveIntensity: number;
-      shininess: number;
-    };
-    globeMaterial.color = new Color(globeConfig.globeColor);
-    globeMaterial.emissive = new Color(globeConfig.emissive);
-    globeMaterial.emissiveIntensity = globeConfig.emissiveIntensity || 0.1;
-    globeMaterial.shininess = globeConfig.shininess || 0.9;
-  };
-
-  const _buildData = () => {
-    const arcs = data;
-    let points = [];
-    for (let i = 0; i < arcs.length; i++) {
-      const arc = arcs[i];
-      const rgb = hexToRgb(arc.color) as { r: number; g: number; b: number };
-      points.push({
-        size: defaultProps.pointSize,
-        order: arc.order,
-        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
-        lat: arc.startLat,
-        lng: arc.startLng,
-      });
-      points.push({
-        size: defaultProps.pointSize,
-        order: arc.order,
-        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
-        lat: arc.endLat,
-        lng: arc.endLng,
-      });
+  }, [globeConfig.autoRotate]);
+  
+  // Calcular la posición inicial
+  useEffect(() => {
+    if (globeConfig.initialPosition) {
+      const initialRot = (globeConfig.initialPosition.lng + 270) % 360;
+      setRotation(initialRot);
     }
-
-    // remove duplicates for same lat and lng
-    const filteredPoints = points.filter(
-      (v, i, a) =>
-        a.findIndex((v2) =>
-          ["lat", "lng"].every(
-            (k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"]
-          )
-        ) === i
-    );
-
-    setGlobeData(filteredPoints);
-  };
-
-  useEffect(() => {
-    if (globeRef.current && globeData) {
-      globeRef.current
-        .hexPolygonsData(countries.features)
-        .hexPolygonResolution(3)
-        .hexPolygonMargin(0.7)
-        .showAtmosphere(defaultProps.showAtmosphere)
-        .atmosphereColor(defaultProps.atmosphereColor)
-        .atmosphereAltitude(defaultProps.atmosphereAltitude)
-        .hexPolygonColor((e) => {
-          return defaultProps.polygonColor;
-        });
-      startAnimation();
-    }
-  }, [globeData]);
-
-  const startAnimation = () => {
-    if (!globeRef.current || !globeData) return;
-
-    globeRef.current
-      .arcsData(data)
-      .arcStartLat((d) => (d as { startLat: number }).startLat * 1)
-      .arcStartLng((d) => (d as { startLng: number }).startLng * 1)
-      .arcEndLat((d) => (d as { endLat: number }).endLat * 1)
-      .arcEndLng((d) => (d as { endLng: number }).endLng * 1)
-      .arcColor((e: any) => (e as { color: string }).color)
-      .arcAltitude((e) => {
-        return (e as { arcAlt: number }).arcAlt * 1;
-      })
-      .arcStroke((e) => {
-        return [0.32, 0.28, 0.3][Math.round(Math.random() * 2)];
-      })
-      .arcDashLength(defaultProps.arcLength)
-      .arcDashInitialGap((e) => (e as { order: number }).order * 1)
-      .arcDashGap(15)
-      .arcDashAnimateTime((e) => defaultProps.arcTime);
-
-    globeRef.current
-      .pointsData(data)
-      .pointColor((e) => (e as { color: string }).color)
-      .pointsMerge(true)
-      .pointAltitude(0.0)
-      .pointRadius(2);
-
-    globeRef.current
-      .ringsData([])
-      .ringColor((e: any) => (t: any) => e.color(t))
-      .ringMaxRadius(defaultProps.maxRings)
-      .ringPropagationSpeed(RING_PROPAGATION_SPEED)
-      .ringRepeatPeriod(
-        (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings
-      );
-  };
-
-  useEffect(() => {
-    if (!globeRef.current || !globeData) return;
-
-    const interval = setInterval(() => {
-      if (!globeRef.current || !globeData) return;
-      numbersOfRings = genRandomNumbers(
-        0,
-        data.length,
-        Math.floor((data.length * 4) / 5)
-      );
-
-      globeRef.current.ringsData(
-        globeData.filter((d, i) => numbersOfRings.includes(i))
-      );
-    }, 2000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [globeRef.current, globeData]);
-
-  return (
-    <>
-      <threeGlobe ref={globeRef} />
-    </>
-  );
-}
-
-export function WebGLRendererConfig() {
-  const { gl, size } = useThree();
-
-  useEffect(() => {
-    gl.setPixelRatio(window.devicePixelRatio);
-    gl.setSize(size.width, size.height);
-    gl.setClearColor(0xffaaff, 0);
-  }, []);
-
-  return null;
-}
-
-export function World(props: WorldProps) {
-  const { globeConfig } = props;
-  const scene = new Scene();
-  scene.fog = new Fog(0xffffff, 400, 2000);
-  return (
-    <Canvas scene={scene} camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
-      <WebGLRendererConfig />
-      <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
-      <directionalLight
-        color={globeConfig.directionalLeftLight}
-        position={new Vector3(-400, 100, 400)}
-      />
-      <directionalLight
-        color={globeConfig.directionalTopLight}
-        position={new Vector3(-200, 500, 200)}
-      />
-      <pointLight
-        color={globeConfig.pointLight}
-        position={new Vector3(-200, 500, 200)}
-        intensity={0.8}
-      />
-      <Globe {...props} />
-      <OrbitControls
-        enablePan={false}
-        enableZoom={false}
-        minDistance={cameraZ}
-        maxDistance={cameraZ}
-        autoRotateSpeed={1}
-        autoRotate={true}
-        minPolarAngle={Math.PI / 3.5}
-        maxPolarAngle={Math.PI - Math.PI / 3}
-      />
-    </Canvas>
-  );
-}
-
-export function hexToRgb(hex: string) {
-  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-    return r + r + g + g + b + b;
+  }, [globeConfig.initialPosition]);
+  
+  // Calcular las posiciones de los puntos y arcos
+  const radius = SVG_SIZE / 3;
+  const points: Array<{x: number, y: number, color: string}> = [];
+  const arcs: Array<{start: [number, number], end: [number, number], color: string}> = [];
+  
+  // Procesar datos para crear puntos y arcos
+  data.forEach(point => {
+    const startPos = latLngToSvgPosition(point.startLat, point.startLng, radius);
+    const endPos = latLngToSvgPosition(point.endLat, point.endLng, radius);
+    
+    points.push({x: startPos[0], y: startPos[1], color: point.color});
+    points.push({x: endPos[0], y: endPos[1], color: point.color});
+    
+    arcs.push({
+      start: startPos,
+      end: endPos,
+      color: point.color
+    });
   });
-
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
+  
+  // Color por defecto si no se especifica
+  const globeColor = globeConfig.globeColor || "#062056";
+  const outlineColor = globeConfig.polygonColor || "rgba(255,255,255,0.7)";
+  const ambientLight = globeConfig.ambientLight || "#38bdf8";
+  
+  return (
+    <div className="w-full h-full flex items-center justify-center relative">
+      <svg
+        ref={svgRef}
+        width={SVG_SIZE}
+        height={SVG_SIZE}
+        viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
+        className="max-w-full max-h-full"
+      >
+        {/* Globo base */}
+        <motion.g 
+          animate={{ rotateY: rotation }}
+          style={{ 
+            transformOrigin: "center",
+            transformBox: "fill-box"
+          }}
+        >
+          {/* Círculo principal */}
+          <circle
+            cx={SVG_SIZE/2}
+            cy={SVG_SIZE/2}
+            r={radius}
+            fill={globeColor}
+            stroke={outlineColor}
+            strokeWidth={1}
+            opacity={0.9}
+          />
+          
+          {/* Líneas de latitud */}
+          {[15, 30, 45, 60, 75].map((lat) => (
+            <ellipse
+              key={`lat-${lat}`}
+              cx={SVG_SIZE/2}
+              cy={SVG_SIZE/2}
+              rx={radius * Math.cos((lat * Math.PI) / 180)}
+              ry={radius}
+              fill="none"
+              stroke={outlineColor}
+              strokeWidth={0.5}
+              opacity={0.3}
+            />
+          ))}
+          
+          {/* Líneas de longitud */}
+          {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((lng) => (
+            <line
+              key={`lng-${lng}`}
+              x1={SVG_SIZE/2}
+              y1={SVG_SIZE/2 - radius}
+              x2={SVG_SIZE/2}
+              y2={SVG_SIZE/2 + radius}
+              stroke={outlineColor}
+              strokeWidth={0.5}
+              opacity={0.3}
+              transform={`rotate(${lng}, ${SVG_SIZE/2}, ${SVG_SIZE/2})`}
+            />
+          ))}
+          
+          {/* Arcos entre puntos */}
+          {arcs.map((arc, i) => {
+            // Calcular punto de control para curva
+            const dx = arc.end[0] - arc.start[0];
+            const dy = arc.end[1] - arc.start[1];
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            // Punto medio elevado para crear un arco
+            const midX = (arc.start[0] + arc.end[0]) / 2;
+            const midY = (arc.start[1] + arc.end[1]) / 2;
+            const elevation = dist * 0.2;
+            
+            const controlX = midX;
+            const controlY = midY - elevation;
+            
+            return (
+              <motion.path
+                key={`arc-${i}`}
+                d={`M ${arc.start[0]},${arc.start[1]} Q ${controlX},${controlY} ${arc.end[0]},${arc.end[1]}`}
+                fill="none"
+                stroke={arc.color}
+                strokeWidth={1}
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ 
+                  pathLength: 1, 
+                  opacity: 0.7,
+                  transition: { 
+                    duration: 2, 
+                    delay: i * 0.1 % 1 
+                  } 
+                }}
+              />
+            );
+          })}
+          
+          {/* Puntos en el globo */}
+          {points.map((point, i) => (
+            <motion.circle
+              key={`point-${i}`}
+              cx={point.x}
+              cy={point.y}
+              r={3}
+              fill={point.color}
+              initial={{ scale: 0 }}
+              animate={{ 
+                scale: [0, 1.5, 1],
+                transition: { 
+                  duration: 0.5, 
+                  delay: (i * 0.1) % 2 
+                } 
+              }}
+            />
+          ))}
+        </motion.g>
+      </svg>
+    </div>
+  );
 }
 
-export function genRandomNumbers(min: number, max: number, count: number) {
-  const arr = [];
-  while (arr.length < count) {
-    const r = Math.floor(Math.random() * (max - min)) + min;
-    if (arr.indexOf(r) === -1) arr.push(r);
-  }
-
-  return arr;
+// Componente World exportable
+function World(props: WorldProps) {
+  return (
+    <div className="world-container w-full h-full">
+      <GlobeObject {...props} />
+    </div>
+  );
 }
+
+export { World };
+export type { GlobePoint, GlobeConfig };

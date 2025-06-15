@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
-import CustomCursor from "../components/ui/CustomCursor";
+import { RestoreCursor } from "@/components/ui/RestoreCursor";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,14 +11,13 @@ export const metadata: Metadata = {
   title: "EMB Portfolio",
   description: "Nuestros proyectos y acerca de nosotros",
 };
-//
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="cursor-auto">
       <head>
         <link rel="icon" href="/emb-logo.svg" sizes="any" type="image/svg+xml" />
       </head>
@@ -29,7 +28,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CustomCursor />
+          <RestoreCursor />
           {children}
         </ThemeProvider>
       </body>

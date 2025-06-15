@@ -5,6 +5,11 @@ import dynamic from "next/dynamic";
 
 const World = dynamic(() => import("./Globe").then((m) => m.World), {
   ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center" style={{cursor: 'auto'}}>
+      <div className="w-40 h-40 rounded-full bg-blue-900/30 animate-pulse"></div>
+    </div>
+  ),
 });
 
 const GridGlobe = () => {
