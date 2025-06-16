@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -10,8 +10,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
-import { IconSun, IconMoon } from "@tabler/icons-react";
 
 export const FloatingNav = ({
   navItems,
@@ -50,17 +48,7 @@ export const FloatingNav = ({
     }
   });
 
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  
-  // Efecto para manejar hidratación
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   return (
     <AnimatePresence mode="wait">
@@ -146,28 +134,7 @@ export const FloatingNav = ({
           ))}
         </nav>
         
-        {/* Separador antes del toggle de tema */}
         <div className="flex-grow"></div>
-        
-        {/* Toggle de tema claro/oscuro */}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={toggleTheme}
-          className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 dark:bg-black/20 dark:hover:bg-black/40 transition-all duration-200"
-          aria-label="Cambiar tema"
-        >
-          {mounted ? (
-            theme === "dark" ? (
-              <IconSun className="h-5 w-5 text-yellow-300" />
-            ) : (
-              <IconMoon className="h-5 w-5 text-purple-700" />
-            )
-          ) : (
-            // Placeholder transparente para evitar saltos de layout durante la hidratación
-            <span className="h-5 w-5" />
-          )}
-        </motion.button>
 
       </motion.div>
     </AnimatePresence>

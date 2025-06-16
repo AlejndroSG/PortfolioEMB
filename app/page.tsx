@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { navItems } from "@/data";
 
 import Hero from "@/components/Hero";
@@ -14,6 +15,192 @@ import HomeButton from "@/components/ui/HomeButton";
 // Cursor predeterminado del sistema - CustomCursor eliminado
 import FloatingParticles from "@/components/ui/FloatingParticles";
 import { AnimatedElement, StaggeredContainer, ParallaxElement, ScrollProgress } from "@/components/ui/ScrollAnimations";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaPlay, FaPause, FaExpand, FaCompress, FaTimes, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
+
+// Componente para el modal de video profesional
+const VideoShowcase = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Manejar el play/pause del video
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  // Manejar el mute/unmute del video
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  // Manejar fullscreen
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement && containerRef.current) {
+      containerRef.current.requestFullscreen().catch(err => {
+        console.error(`Error al intentar pantalla completa: ${err.message}`);
+      });
+      setIsFullscreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    }
+  };
+
+  // Detectar cuando se sale del modo pantalla completa con escape
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement) {
+        setIsFullscreen(false);
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  // Detener el video cuando se cierra el modal
+  useEffect(() => {
+    if (!isOpen && videoRef.current) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  }, [isOpen]);
+
+  return (
+    <>
+      <motion.div 
+        className="relative my-16 px-4 sm:px-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
+        <div className="w-full max-w-5xl mx-auto">
+          <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-purple/40 transition-shadow duration-500 cursor-pointer bg-[#13162D]/80 border border-white/5">
+            {/* Preview del video con capa de overlay */}
+            <div 
+              className="relative w-full aspect-video"
+              onClick={() => setIsOpen(true)}
+            >
+              {/* Miniatura del video o primer frame */}
+              <video 
+                className="w-full h-full object-cover opacity-80"
+                src="/VideoFinal.mp4" 
+                muted 
+                playsInline
+                loop
+              />
+              
+              {/* Overlay con efecto de gradiente */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/50 to-black/20">
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                  <motion.div 
+                    className="w-20 h-20 bg-purple/80 rounded-full flex items-center justify-center shadow-lg shadow-purple/30"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaPlay className="text-white text-2xl ml-1" />
+                  </motion.div>
+                  <h3 className="mt-6 text-xl font-semibold text-center px-4">Descubre nuestra propuesta de valor</h3>
+                  <p className="mt-2 text-white/70 text-center max-w-md px-4">Mira nuestro video promocional y conoce cómo podemos ayudarte a transformar tu visión en realidad.</p>
+                </div>
+              </div>
+              
+              {/* Gradiente inferior */}
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+      
+      {/* Modal de video */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 px-4 sm:px-6"
+            onClick={() => setIsOpen(false)}
+          >
+            {/* Contenedor del video - clickable aislado para evitar cerrar cuando se hace click en el video */}
+            <motion.div 
+              className="w-full max-w-5xl relative"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+              ref={containerRef}
+            >
+              {/* Video player */}
+              <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+                <video 
+                  ref={videoRef}
+                  className="w-full aspect-video"
+                  src="/VideoFinal.mp4"
+                  playsInline
+                  onClick={togglePlay}
+                />
+                
+                {/* Controles personalizados */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <button 
+                        onClick={togglePlay}
+                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                      >
+                        {isPlaying ? <FaPause className="text-white" /> : <FaPlay className="text-white ml-1" />}
+                      </button>
+                      <button 
+                        onClick={toggleMute}
+                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                      >
+                        {isMuted ? <FaVolumeMute className="text-white" /> : <FaVolumeUp className="text-white" />}
+                      </button>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                      <button 
+                        onClick={toggleFullscreen}
+                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                      >
+                        {isFullscreen ? <FaCompress className="text-white" /> : <FaExpand className="text-white" />}
+                      </button>
+                      <button 
+                        onClick={() => setIsOpen(false)}
+                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                      >
+                        <FaTimes className="text-white" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
 const Home = () => {
   return (
@@ -35,6 +222,9 @@ const Home = () => {
         <AnimatedElement animation="fade-up" duration={0.4}>
           <Hero />
         </AnimatedElement>
+        
+        {/* Video Showcase - Integrado estratégicamente después del Hero */}
+        <VideoShowcase />
         
         {/* Grid con efecto parallax sutil */}
         <ParallaxElement speed={-0.05}>
