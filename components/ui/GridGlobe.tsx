@@ -38,6 +38,7 @@ const GridGlobe = () => {
   const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
   const sampleArcs = [
     {
+      arcID: "br-rio",
       order: 1,
       startLat: -19.885592,
       startLng: -43.951191,
@@ -47,6 +48,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "india-malaysia",
       order: 1,
       startLat: 28.6139,
       startLng: 77.209,
@@ -56,6 +58,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "br-kenya",
       order: 1,
       startLat: -19.885592,
       startLng: -43.951191,
@@ -65,6 +68,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "singapore-japan",
       order: 2,
       startLat: 1.3521,
       startLng: 103.8198,
@@ -74,6 +78,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "london-malaysia",
       order: 2,
       startLat: 51.5072,
       startLng: -0.1276,
@@ -83,6 +88,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "brazil-vegas",
       order: 2,
       startLat: -15.785493,
       startLng: -47.909029,
@@ -92,6 +98,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "sydney-hk",
       order: 3,
       startLat: -33.8688,
       startLng: 151.2093,
@@ -101,6 +108,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "hawaii-nyc",
       order: 3,
       startLat: 21.3099,
       startLng: -157.8581,
@@ -110,6 +118,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "jakarta-london",
       order: 3,
       startLat: -6.2088,
       startLng: 106.8456,
@@ -119,6 +128,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "nigeria-brazil",
       order: 4,
       startLat: 11.986597,
       startLng: 8.571831,
@@ -128,6 +138,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "buenos-aires-hk",
       order: 4,
       startLat: -34.6037,
       startLng: -58.3816,
@@ -137,6 +148,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "london-paris",
       order: 4,
       startLat: 51.5072,
       startLng: -0.1276,
@@ -146,6 +158,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "manila-london",
       order: 5,
       startLat: 14.5995,
       startLng: 120.9842,
@@ -155,6 +168,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "singapore-sydney",
       order: 5,
       startLat: 1.3521,
       startLng: 103.8198,
@@ -164,6 +178,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "la-paris",
       order: 5,
       startLat: 34.0522,
       startLng: -118.2437,
@@ -173,6 +188,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "zambia-venezuela",
       order: 6,
       startLat: -15.432563,
       startLng: 28.315853,
@@ -182,6 +198,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "seoul-tokyo",
       order: 6,
       startLat: 37.5665,
       startLng: 126.978,
@@ -191,6 +208,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "hk-london",
       order: 6,
       startLat: 22.3193,
       startLng: 114.1694,
@@ -200,6 +218,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "brazil-internal",
       order: 7,
       startLat: -19.885592,
       startLng: -43.951191,
@@ -209,6 +228,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "paris-berlin",
       order: 7,
       startLat: 48.8566,
       startLng: -2.3522,
@@ -218,6 +238,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "berlin-la",
       order: 7,
       startLat: 52.52,
       startLng: 13.405,
@@ -227,6 +248,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "angola-capetown",
       order: 8,
       startLat: -8.833221,
       startLng: 13.264837,
@@ -236,6 +258,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "vancouver-amsterdam",
       order: 8,
       startLat: 49.2827,
       startLng: -123.1207,
@@ -245,6 +268,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "singapore-nyc",
       order: 8,
       startLat: 1.3521,
       startLng: 103.8198,
@@ -254,6 +278,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "london-la",
       order: 9,
       startLat: 51.5072,
       startLng: -0.1276,
@@ -263,6 +288,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "hk-rio",
       order: 9,
       startLat: 22.3193,
       startLng: 114.1694,
@@ -272,6 +298,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "singapore-buenosaires",
       order: 9,
       startLat: 1.3521,
       startLng: 103.8198,
@@ -281,6 +308,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "rio-delhi",
       order: 10,
       startLat: -22.9068,
       startLng: -43.1729,
@@ -290,6 +318,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "la-shanghai",
       order: 10,
       startLat: 34.0522,
       startLng: -118.2437,
@@ -299,6 +328,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "jakarta-amsterdam",
       order: 10,
       startLat: -6.2088,
       startLng: 106.8456,
@@ -308,6 +338,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "rome-la",
       order: 11,
       startLat: 41.9028,
       startLng: 12.4964,
@@ -317,6 +348,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "jakarta-shanghai",
       order: 11,
       startLat: -6.2088,
       startLng: 106.8456,
@@ -326,6 +358,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "hk-singapore",
       order: 11,
       startLat: 22.3193,
       startLng: 114.1694,
@@ -335,6 +368,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "la-sf",
       order: 12,
       startLat: 34.0522,
       startLng: -118.2437,
@@ -344,6 +378,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "tokyo-hk",
       order: 12,
       startLat: 35.6762,
       startLng: 139.6503,
@@ -353,6 +388,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "hk-la",
       order: 12,
       startLat: 22.3193,
       startLng: 114.1694,
@@ -362,6 +398,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "berlin-hk",
       order: 13,
       startLat: 52.52,
       startLng: 13.405,
@@ -371,6 +408,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "nigeria-tokyo",
       order: 13,
       startLat: 11.986597,
       startLng: 8.571831,
@@ -380,6 +418,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "rio-buenosaires",
       order: 13,
       startLat: -22.9068,
       startLng: -43.1729,
@@ -389,6 +428,7 @@ const GridGlobe = () => {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
     {
+      arcID: "capetown-saudi",
       order: 14,
       startLat: -33.936138,
       startLng: 18.436529,
