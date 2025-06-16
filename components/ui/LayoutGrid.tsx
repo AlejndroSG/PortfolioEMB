@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "./MovingBorders";
+import { IconX } from "@tabler/icons-react";
 
 type Card = {
   id: number;
@@ -15,6 +16,7 @@ type Card = {
 export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
   const [selected, setSelected] = useState<Card | null>(null);
   const [lastSelected, setLastSelected] = useState<Card | null>(null);
+  const [isHovered, setIsHovered] = useState<number | null>(null);
 
   const handleClick = (card: Card) => {
     setLastSelected(selected);
@@ -25,40 +27,51 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
     setLastSelected(selected);
     setSelected(null);
   };
+  
+  const handleHover = (id: number | null) => {
+    setIsHovered(id);
+  };
 
   return (
-    // change md:grid-cols-3 to md:grid-cols-4, gap-4 to gap-10
-    <div className="w-full h-full p-10 grid grid-cols-1 md:grid-cols-4 max-w-7xl mx-auto gap-10 ">
+    <div className="w-full h-full p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-w-7xl mx-auto gap-6 md:gap-8 lg:gap-10">
       {cards.map((card, i) => (
         <Button
           key={i}
           borderRadius="1.75rem"
-          //   default is 2000
-          duration={10000}
-          //   add className={cn(card.className, "")}
+          duration={8000}
           className={cn(
-            card.className
-            // "bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+            card.className,
+            isHovered === card.id ? "scale-[1.02] shadow-xl" : "",
+            "transition-all duration-300 hover:shadow-2xl"
           )}
         >
           <div
             className={cn(
-              card.className,
-              "relative border-3 border-yellow-500"
+              "relative rounded-xl overflow-hidden",
+              selected?.id === card.id ? "ring-2 ring-purple-500 ring-offset-2" : ""
             )}
+            onMouseEnter={() => handleHover(card.id)}
+            onMouseLeave={() => handleHover(null)}
           >
             <motion.div
               onClick={() => handleClick(card)}
               className={cn(
-                card.className,
                 "relative overflow-hidden",
                 selected?.id === card.id
-                  ? "rounded-lg cursor-pointer absolute inset-0 h-1/2 w-full md:w-1/2 m-auto z-50 flex justify-center items-center flex-wrap flex-col"
+                  ? "rounded-lg cursor-pointer absolute inset-0 h-3/4 w-full md:w-3/4 m-auto z-50 flex justify-center items-center flex-wrap flex-col"
                   : lastSelected?.id === card.id
-                  ? "z-40 bg-white rounded-xl h-full w-full"
-                  : "bg-white rounded-xl h-full w-full"
+                  ? "z-40 bg-white dark:bg-gray-800 rounded-xl h-full w-full"
+                  : "bg-white dark:bg-gray-800 rounded-xl h-full w-full"
               )}
               layout
+              whileHover={selected?.id !== card.id ? { scale: 1.02 } : {}}
+              transition={{
+                layout: {
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30
+                }
+              }}
             >
               {selected?.id === card.id && <SelectedCard selected={selected} />}
               <BlurImage card={card} />
@@ -81,33 +94,47 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
 const BlurImage = ({ card }: { card: Card }) => {
   const [loaded, setLoaded] = useState(false);
   return (
-    <Image
-      src={card.thumbnail}
-      //   change image scale 500 to 100
-      height="100"
-      width="100"
-      onLoad={() => setLoaded(true)}
-      className={cn(
-        "object-cover object-top absolute inset-0 h-full w-full transition duration-200",
-        loaded ? "blur-none" : "blur-md"
-      )}
-      alt="thumbnail"
-    />
+    <div className="relative w-full h-full aspect-[4/3] overflow-hidden">
+      <Image
+        src={card.thumbnail}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        priority
+        onLoad={() => setLoaded(true)}
+        className={cn(
+          "object-cover object-center transition-all duration-500",
+          loaded ? "blur-none scale-100" : "blur-md scale-105"
+        )}
+        alt={`Imagen de proyecto ${card.id}`}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70"></div>
+    </div>
   );
 };
 
 const SelectedCard = ({ selected }: { selected: Card | null }) => {
+  if (!selected) return null;
+  
   return (
-    <div className="bg-transparent h-full w-full flex flex-col justify-end rounded-lg shadow-2xl relative z-[60]">
+    <div className="bg-transparent h-full w-full flex flex-col justify-end rounded-xl shadow-2xl relative z-[60]">
+      <motion.div 
+        className="absolute top-4 right-4 z-[80] p-2 rounded-full bg-white/80 dark:bg-gray-800/80 cursor-pointer"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <IconX size={18} className="text-gray-700 dark:text-gray-200" />
+      </motion.div>
+      
       <motion.div
         initial={{
           opacity: 0,
         }}
         animate={{
-          opacity: 0.6,
+          opacity: 0.75,
         }}
-        className="absolute inset-0 h-full w-full bg-black opacity-60 z-10"
+        className="absolute inset-0 h-full w-full bg-gradient-to-b from-black/80 to-black/95 backdrop-blur-sm z-10"
       />
+      
       <motion.div
         initial={{
           opacity: 0,
@@ -118,13 +145,30 @@ const SelectedCard = ({ selected }: { selected: Card | null }) => {
           y: 0,
         }}
         transition={{
-          duration: 0.3,
+          duration: 0.4,
           ease: "easeInOut",
         }}
-        className="relative px-8 pb-4 z-[70]"
+        className="relative px-8 py-8 z-[70] max-h-[80vh] overflow-y-auto custom-scrollbar"
       >
         {selected?.content}
       </motion.div>
     </div>
   );
 };
+
+// Estilos para el scrollbar personalizado
+// Agregar a globals.css
+/*
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 10px;
+}
+*/

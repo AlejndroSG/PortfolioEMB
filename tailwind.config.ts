@@ -146,6 +146,26 @@ const config = {
             transform: "translate(calc(-50% - 0.5rem))",
           },
         },
+        "glow-pulse": {
+          "0%, 100%": {
+            opacity: "0.8",
+            filter: "blur(10px) brightness(1)",
+            transform: "scale(1)",
+          },
+          "50%": {
+            opacity: "1",
+            filter: "blur(15px) brightness(1.25)",
+            transform: "scale(1.1)",
+          },
+        },
+        "soft-bounce": {
+          "0%, 100%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-5%)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -159,6 +179,8 @@ const config = {
         fifth: "moveInCircle 20s ease infinite",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+        "soft-bounce": "soft-bounce 3s ease-in-out infinite",
       },
     },
   },

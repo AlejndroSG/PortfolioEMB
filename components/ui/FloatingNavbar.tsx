@@ -10,6 +10,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
+import { IconSun, IconMoon } from "@tabler/icons-react";
 
 export const FloatingNav = ({
   navItems,
@@ -48,6 +50,18 @@ export const FloatingNav = ({
     }
   });
 
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  // Efecto para manejar hidratación
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -61,85 +75,100 @@ export const FloatingNav = ({
         }}
         transition={{
           duration: 0.2,
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
         }}
         className={cn(
-          // change rounded-full to rounded-lg
-          // remove dark:border-white/[0.2] dark:bg-black bg-white border-transparent
-          // change  pr-2 pl-8 py-2 to px-10 py-5
-          "flex max-w-fit md:min-w-[70vw] lg:min-w-fit fixed z-[5000] top-10 inset-x-0 mx-auto px-10 py-5 rounded-lg border border-black/.1 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] items-center justify-center space-x-4",
+          "flex max-w-fit md:min-w-[70vw] lg:min-w-fit fixed z-[5000] top-10 inset-x-0 mx-auto px-8 py-4 rounded-2xl backdrop-blur-xl border dark:border-white/10 border-black/10 shadow-lg dark:shadow-purple-900/20 items-center justify-center space-x-4",
           className
         )}
         style={{
-          backdropFilter: "blur(16px) saturate(180%)",
           backgroundColor: "rgba(17, 25, 40, 0.75)",
-          borderRadius: "12px",
-          border: "1px solid rgba(255, 255, 255, 0.125)",
         }}
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center mr-6">
-          <div className="relative w-8 h-8 mr-1 overflow-hidden opacity-90 hover:opacity-100 transition-opacity">
+        <Link href="/" className="flex items-center mr-6 group">
+          <div className="relative w-8 h-8 mr-2 overflow-hidden transition-all duration-300 group-hover:scale-110">
             <Image 
-              src="/jsm-logo.png" 
+              src="/emb-logo.svg" 
               alt="EMB Logo"
               fill
               className="object-contain"
               priority
             />
           </div>
-          <span className="text-white/90 font-medium text-base">EMB</span>
+          <span className="text-white/90 font-semibold text-base group-hover:text-white transition-colors">EMB</span>
         </Link>
 
-        <div className="h-6 border-r border-white/10 mx-2"></div>
+        <div className="h-6 border-r border-white/10 mx-2 hidden sm:block"></div>
 
-        {navItems.map((navItem: any, idx: number) => (
-          <div
-            key={`link=${idx}`}
-            onClick={() => {
-              if (isProjectPage) {
-                // Si estamos en la página de proyectos, redirigir a la página principal con el ancla
-                router.push(`/${navItem.link}`);
-              } else {
-                // Si estamos en la página principal, comportamiento normal de scroll
-                const targetId = navItem.link.substring(1); // Eliminar el # del inicio
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                  // Calcular la posición exacta del elemento
-                  const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        <nav className="flex items-center gap-1 sm:gap-2">
+          {navItems.map((navItem: any, idx: number) => (
+            <motion.div
+              key={`link=${idx}`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                if (isProjectPage) {
+                  router.push(`/${navItem.link}`);
+                } else {
+                  const targetId = navItem.link.substring(1);
+                  const targetElement = document.getElementById(targetId);
                   
-                  // Desplazarse a la posición exacta
-                  window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                  });
-                  
-                  // Comportamiento especial para el botón 'Nosotros' (primer elemento)
-                  if (idx === 0) {
-                    // Asegurar que suba completamente hasta arriba
-                    setTimeout(() => {
-                      window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                      });
-                    }, 100);
+                  if (targetElement) {
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    
+                    window.scrollTo({
+                      top: targetPosition,
+                      behavior: 'smooth'
+                    });
+                    
+                    if (idx === 0) {
+                      setTimeout(() => {
+                        window.scrollTo({
+                          top: 0,
+                          behavior: 'smooth'
+                        });
+                      }, 100);
+                    }
                   }
                 }
-              }
-            }}
-            className={cn(
-              "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500 cursor-pointer"
-            )}
-          >
-            <span className="block sm:hidden">{navItem.icon}</span>
-            <span className="text-sm">{navItem.name}</span>
-          </div>
-        ))}
-        {/* remove this login btn */}
-        {/* <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
-          <span>Login</span>
-          <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
-        </button> */}
+              }}
+              className={cn(
+                "relative px-3 py-1.5 rounded-lg transition-all duration-200",
+                "dark:text-white/90 text-neutral-700 hover:bg-white/10 dark:hover:bg-black/20 cursor-pointer"
+              )}
+            >
+              <span className="block sm:hidden">{navItem.icon}</span>
+              <span className="text-sm font-medium">{navItem.name}</span>
+            </motion.div>
+          ))}
+        </nav>
+        
+        {/* Separador antes del toggle de tema */}
+        <div className="flex-grow"></div>
+        
+        {/* Toggle de tema claro/oscuro */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={toggleTheme}
+          className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 dark:bg-black/20 dark:hover:bg-black/40 transition-all duration-200"
+          aria-label="Cambiar tema"
+        >
+          {mounted ? (
+            theme === "dark" ? (
+              <IconSun className="h-5 w-5 text-yellow-300" />
+            ) : (
+              <IconMoon className="h-5 w-5 text-purple-700" />
+            )
+          ) : (
+            // Placeholder transparente para evitar saltos de layout durante la hidratación
+            <span className="h-5 w-5" />
+          )}
+        </motion.button>
+
       </motion.div>
     </AnimatePresence>
   );
