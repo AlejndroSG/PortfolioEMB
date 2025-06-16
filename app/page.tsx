@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { navItems } from "@/data";
+import Image from "next/image";
 
 import Hero from "@/components/Hero";
 import Grid from "@/components/Grid";
@@ -16,73 +17,15 @@ import HomeButton from "@/components/ui/HomeButton";
 import FloatingParticles from "@/components/ui/FloatingParticles";
 import { AnimatedElement, StaggeredContainer, ParallaxElement, ScrollProgress } from "@/components/ui/ScrollAnimations";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaPlay, FaPause, FaExpand, FaCompress, FaTimes, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
+import { FaPlay, FaTimes } from "react-icons/fa";
 
 // Componente para el modal de video profesional
 const VideoShowcase = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Manejar el play/pause del video
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  // Manejar el mute/unmute del video
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
-  // Manejar fullscreen
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement && containerRef.current) {
-      containerRef.current.requestFullscreen().catch(err => {
-        console.error(`Error al intentar pantalla completa: ${err.message}`);
-      });
-      setIsFullscreen(true);
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-        setIsFullscreen(false);
-      }
-    }
-  };
-
-  // Detectar cuando se sale del modo pantalla completa con escape
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      if (!document.fullscreenElement) {
-        setIsFullscreen(false);
-      }
-    };
-
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-    };
-  }, []);
-
-  // Detener el video cuando se cierra el modal
-  useEffect(() => {
-    if (!isOpen && videoRef.current) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    }
-  }, [isOpen]);
+  const youtubeId = "tcPjlcTtt20"; // ID del video de YouTube
+  
+  // Generamos la imagen de thumbnail de YouTube
+  const thumbnailUrl = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
 
   return (
     <>
@@ -99,14 +42,16 @@ const VideoShowcase = () => {
               className="relative w-full aspect-video"
               onClick={() => setIsOpen(true)}
             >
-              {/* Miniatura del video o primer frame */}
-              <video 
-                className="w-full h-full object-cover opacity-80"
-                src="/VideoFinal.mp4" 
-                muted 
-                playsInline
-                loop
-              />
+              {/* Miniatura del video de YouTube */}
+              <div className="w-full h-full">
+                <Image 
+                  src={thumbnailUrl}
+                  alt="Video promocional"
+                  fill
+                  className="object-cover opacity-80"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw"
+                />
+              </div>
               
               {/* Overlay con efecto de gradiente */}
               <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/50 to-black/20">
@@ -130,7 +75,7 @@ const VideoShowcase = () => {
         </div>
       </motion.div>
       
-      {/* Modal de video */}
+      {/* Modal de video de YouTube */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -148,52 +93,27 @@ const VideoShowcase = () => {
               exit={{ scale: 0.9, y: 20 }}
               transition={{ type: 'spring', damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              ref={containerRef}
             >
-              {/* Video player */}
-              <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                <video 
-                  ref={videoRef}
-                  className="w-full aspect-video"
-                  src="/VideoFinal.mp4"
-                  playsInline
-                  onClick={togglePlay}
-                />
-                
-                {/* Controles personalizados */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <button 
-                        onClick={togglePlay}
-                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                      >
-                        {isPlaying ? <FaPause className="text-white" /> : <FaPlay className="text-white ml-1" />}
-                      </button>
-                      <button 
-                        onClick={toggleMute}
-                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                      >
-                        {isMuted ? <FaVolumeMute className="text-white" /> : <FaVolumeUp className="text-white" />}
-                      </button>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      <button 
-                        onClick={toggleFullscreen}
-                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                      >
-                        {isFullscreen ? <FaCompress className="text-white" /> : <FaExpand className="text-white" />}
-                      </button>
-                      <button 
-                        onClick={() => setIsOpen(false)}
-                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                      >
-                        <FaTimes className="text-white" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              {/* Contenedor del iframe con proporción de aspecto */}
+              <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl w-full aspect-video">
+                <iframe
+                  className="w-full h-full absolute inset-0"
+                  src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&showinfo=0`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
               </div>
+              
+              {/* Botón de cierre */}
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                aria-label="Cerrar video"
+              >
+                <FaTimes className="text-white" />
+              </button>
             </motion.div>
           </motion.div>
         )}
