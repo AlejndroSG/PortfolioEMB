@@ -24,28 +24,34 @@
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.365.0",
     "mini-svg-data-uri": "^1.4.4",
-    "next": "14.1.4",
+    "next": "^14.2.0",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.0.1",
+    "react-icons": "^5.5.0",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.163.0",
     "three-globe": "^2.31.0",
     "uuid": "^10.0.0",
-    "vercel": "^34.0.0"
+    "vercel": "^43.3.0"
   },
   "devDependencies": {
     "@types/draco3d": "^1.4.10",
     "@types/node": "^20",
-    "@types/react": "^18.3.22",
-    "@types/react-dom": "^18.3.7",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
-    "eslint-config-next": "14.1.4",
+    "eslint-config-next": "^14.2.0",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "overrides": {
+    "esbuild": "^0.25.5",
+    "path-to-regexp": "^6.2.2",
+    "undici": "^5.28.5"
   }
 }
