@@ -71,13 +71,30 @@ const Hero = () => {
             ¡Hola! Somos un grupo de <span className="text-purple font-bold">Desarrolladores FullStack</span>
           </p>
 
-          <a href="#projects" className="mt-4 transform hover:scale-105 transition-transform duration-300">
+          <div 
+            onClick={() => {
+              const projectsSection = document.getElementById('projects');
+              if (projectsSection) {
+                // Calcular offset para navbar
+                const navbarHeight = window.innerWidth < 640 ? 70 : 80;
+                const additionalOffset = 20;
+                
+                const yPosition = projectsSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight - additionalOffset;
+                
+                window.scrollTo({
+                  top: yPosition,
+                  behavior: 'smooth'
+                });
+              }
+            }} 
+            className="mt-4 transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+          >
             <MagicButton
               title="Nuestros proyectos"
               icon={<FaLocationArrow />}
               position="right"
             />
-          </a>
+          </div>
         </div>
       </div>
     </div>

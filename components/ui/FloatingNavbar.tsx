@@ -66,7 +66,12 @@ export const FloatingNav = ({
       const targetElement = document.getElementById(targetId);
       
       if (targetElement) {
-        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        // Calcular la altura del navbar (aproximada para dispositivos diferentes)
+        const navbarHeight = window.innerWidth < 640 ? 70 : 80;
+        // Añadir un offset adicional para mejor visualización
+        const additionalOffset = 20;
+        
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight - additionalOffset;
         
         window.scrollTo({
           top: targetPosition,

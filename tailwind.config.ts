@@ -90,6 +90,14 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+          "50%": { transform: "translateY(-10px) rotate(3deg)" },
+        },
+        "float-delay": {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+          "50%": { transform: "translateY(-8px) rotate(-2deg)" },
+        },
         spotlight: {
           "0%": {
             opacity: "0",
@@ -181,6 +189,8 @@ const config = {
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
         "soft-bounce": "soft-bounce 3s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "float-delay": "float-delay 7s ease-in-out infinite",
       },
     },
   },
