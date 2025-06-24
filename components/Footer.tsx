@@ -39,25 +39,34 @@ const Footer = () => {
           Copyright © 2025 Equipo EMB
         </p>
 
-        <div className="flex items-center md:gap-3 gap-6">
-          {socialMedia.map((info) => (
-            <div
-              key={info.id}
-              className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple/20 hover:border-purple/50 group relative overflow-hidden"
-            >
-              {/* Efecto de gradiente que aparece en hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
-              {/* Imagen con efecto de zoom suave */}
-              <img 
-                src={info.img} 
-                alt={`${info.id} social icon`} 
-                width={20} 
-                height={20} 
-                className="relative z-10 transition-transform duration-300 group-hover:scale-110" 
-              />
-            </div>
-          ))}
+        <div className="flex md:flex-row flex-col md:items-center items-start md:mt-0 mt-8 gap-4">
+          <p className="text-white/70 text-sm pr-2 md:block hidden">Encuéntranos en:</p>
+          
+          <div className="flex items-center md:gap-4 gap-6">
+            {socialMedia.map((info) => (
+              <a
+                key={info.id}
+                href={info.link}
+                aria-label={`Enlace a ${info.name}`}
+                className="group flex flex-col items-center gap-1"
+              >
+                <div className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple/20 hover:border-purple/50 group relative overflow-hidden">
+                  {/* Efecto de gradiente que aparece en hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {/* Imagen con efecto de zoom suave */}
+                  <img 
+                    src={info.img} 
+                    alt={`${info.name} icon`} 
+                    width={20} 
+                    height={20} 
+                    className="relative z-10 transition-transform duration-300 group-hover:scale-110" 
+                  />
+                </div>
+                <span className="text-xs text-white/50 group-hover:text-white/90 transition-colors duration-300">{info.name}</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

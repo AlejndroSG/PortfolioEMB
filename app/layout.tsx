@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning className="cursor-auto scroll-smooth">
       <head>
-        <link rel="icon" href="/emb-logo.svg" sizes="any" type="image/svg+xml" />
+        <link rel="icon" href="/logofinal.jpg" sizes="any" type="image/svg+xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#8b5cf6" />
       </head>

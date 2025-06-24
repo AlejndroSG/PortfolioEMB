@@ -68,7 +68,7 @@ export const BentoGridItem = ({
   }, []);
 
   const handleCopy = () => {
-    const text = "contacto@emb.dev"; // Email actualizado para EMB
+    const text = "info@embdevs.com"; // Email actualizado para EMB
     navigator.clipboard.writeText(text);
     setCopied(true);
     

@@ -120,10 +120,10 @@ export const FloatingNav = ({
         <Link href="/" className="flex items-center group">
           <div className="relative w-7 h-7 sm:w-8 sm:h-8 mr-1 sm:mr-2 overflow-hidden transition-all duration-300 group-hover:scale-110">
             <Image 
-              src="/emb-logo.svg" 
+              src="/logofinal.jpg" 
               alt="EMB Logo"
               fill
-              className="object-contain"
+              className="object-contain rounded-full"
               priority
             />
           </div>
