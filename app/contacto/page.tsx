@@ -6,6 +6,9 @@ import { FaLocationDot } from "react-icons/fa6";
 import Image from "next/image";
 import SEOMetaTags from "@/components/SEOMetaTags";
 import { FloatingParticles } from "@/components/FloatingParticles";
+import { FloatingNav } from "@/components/ui/FloatingNavbar";
+import Footer from "@/components/Footer";
+import { navItems, socialMedia } from "@/data";
 
 const ContactPage = () => {
   // Estados para el formulario
@@ -30,13 +33,15 @@ const ContactPage = () => {
 
   return (
     <>
-      
       <SEOMetaTags
         title="Contacto | EMB"
         description="Ponte en contacto con el equipo de EMB. Estamos listos para ayudarte con tu próximo proyecto."
       />
       
-      <main className="relative min-h-screen bg-black-100 overflow-hidden">
+      {/* Navegación flotante */}
+      <FloatingNav navItems={navItems} />
+      
+      <main className="relative min-h-screen bg-black-100 overflow-hidden pt-10">
         {/* Partículas flotantes decorativas */}
         <FloatingParticles />
         <div className="absolute top-20 right-10 w-[30vw] h-[30vw] rounded-full bg-purple/20 blur-3xl opacity-30 animate-pulse" />
@@ -339,6 +344,48 @@ const ContactPage = () => {
           </motion.div>
         </div>
       </main>
+      
+      {/* Footer personalizado - Solo parte inferior */}
+      <div className="w-full bg-black-100 pt-10 pb-10 relative z-10">
+        {/* Grid de fondo similar al Footer original */}
+        <div className="w-full absolute left-0 -bottom-0 min-h-96">
+          <img
+            src="/footer-grid.svg"
+            alt="grid"
+            className="w-full h-full opacity-50"
+          />
+        </div>
+        
+        {/* Solo la parte inferior del footer con copyright y redes sociales */}
+        <div className="container mx-auto px-4">
+          <div className="flex mt-8 md:flex-row flex-col justify-between items-center">
+            <p className="md:text-base text-sm md:font-normal font-light">
+              Copyright © {new Date().getFullYear()} Equipo EMB
+            </p>
+
+            <div className="flex items-center md:gap-3 gap-6">
+              {socialMedia.map((info) => (
+                <div
+                  key={info.id}
+                  className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple/20 hover:border-purple/50 group relative overflow-hidden"
+                >
+                  {/* Efecto de gradiente que aparece en hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {/* Imagen con efecto de zoom suave */}
+                  <img 
+                    src={info.img} 
+                    alt={`${info.id} social icon`} 
+                    width={20} 
+                    height={20} 
+                    className="relative z-10 transition-transform duration-300 group-hover:scale-110" 
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

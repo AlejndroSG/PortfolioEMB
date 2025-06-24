@@ -91,8 +91,9 @@ export const FloatingNav = ({
   };
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="sync">
       <motion.div
+        key="navbar"
         initial={{
           opacity: 1,
           y: -100,
@@ -136,7 +137,7 @@ export const FloatingNav = ({
         <nav className="hidden md:flex items-center gap-1 lg:gap-2">
           {navItems.map((navItem, idx) => (
             <motion.div
-              key={`link=${idx}`}
+              key={`link-${idx}`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleNavigation(navItem, idx)}
@@ -179,6 +180,7 @@ export const FloatingNav = ({
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            key="mobile-menu"
             initial={{ opacity: 0, height: 0, y: -20 }}
             animate={{ opacity: 1, height: 'auto', y: 0 }}
             exit={{ opacity: 0, height: 0, y: -20 }}
