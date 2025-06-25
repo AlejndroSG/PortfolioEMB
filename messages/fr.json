@@ -1,0 +1,144 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "projects": "Projets", 
+    "testimonials": "Témoignages",
+    "contact": "Contact"
+  },
+
+  "hero": {
+    "commitment": "Engagé dans l'innovation technologique",
+    "title": "Transformer les idées en expériences numériques exceptionnelles",
+    "greeting": "Salut ! Je suis",
+    "role": "EMB, développeur Full Stack",
+    "projectsButton": "Voir mes projets"
+  },
+
+  "grid": {
+    "item1": {
+      "title": "Nous priorisons la collaboration client",
+      "description": "Favorisant une communication ouverte tout au long du développement"
+    },
+    "item2": {
+      "title": "Flexible avec les communications",
+      "description": "S'adaptant aux différents fuseaux horaires pour une meilleure collaboration"
+    },
+    "item3": {
+      "title": "Stack Technique",
+      "description": "React, Next.js, TypeScript, Node.js et plus"
+    },
+    "item4": {
+      "title": "Amélioration continue",
+      "description": "Constamment en train de mettre à jour les compétences et d'apprendre de nouvelles technologies"
+    },
+    "item5": {
+      "title": "Passion pour le développement",
+      "description": "Passionné de technologie avec expérience dans des projets divers"
+    },
+    "item6": {
+      "title": "Prêt pour un projet ?",
+      "description": "Transformons votre idée en réalité numérique"
+    }
+  },
+
+  "projects": {
+    "title": "Une petite sélection de",
+    "subtitle": "projets récents",
+    "exploreButton": "Explorer le projet",
+    "project1": {
+      "title": "Plateforme Peaky Blinders",
+      "description": "Plateforme interactive pour la série, avec biographies et contenu exclusif"
+    },
+    "project2": {
+      "title": "Site Web Dunkin Donuts",
+      "description": "Refonte complète axée sur l'UX et l'optimisation des conversions"
+    },
+    "project3": {
+      "title": "Plateforme Learn IA",
+      "description": "Plateforme éducative avec IA pour personnaliser l'apprentissage"
+    },
+    "project4": {
+      "title": "Plateforme Vidéo Yoom",
+      "description": "Plateforme de visioconférence avec technologie moderne"
+    }
+  },
+
+  "experience": {
+    "title": "Mon expérience",
+    "subtitle": "professionnelle",
+    "work1": {
+      "title": "Développeur Frontend",
+      "description": "Création d'interfaces modernes et responsives avec React et Next.js"
+    },
+    "work2": {
+      "title": "Développeur Full Stack",
+      "description": "Développement d'applications complètes du frontend au backend"
+    },
+    "work3": {
+      "title": "Développeur Mobile",
+      "description": "Création d'applications mobiles natives et cross-platform"
+    },
+    "work4": {
+      "title": "Lead Technique",
+      "description": "Direction d'équipes de développement et définition d'architectures techniques"
+    }
+  },
+
+  "approach": {
+    "title": "Mon approche de",
+    "subtitle": "développement",
+    "phase1": {
+      "phase": "01",
+      "title": "Planification et analyse",
+      "description": "Nous définissons les objectifs, exigences et architecture du projet pour garantir le succès"
+    },
+    "phase2": {
+      "phase": "02", 
+      "title": "Développement et tests",
+      "description": "Développement itératif avec tests continus pour assurer qualité et fonctionnalité"
+    },
+    "phase3": {
+      "phase": "03",
+      "title": "Lancement et support",
+      "description": "Déploiement optimisé et support continu pour maintenir le projet à jour"
+    }
+  },
+
+  "testimonials": {
+    "title": "Mots gentils de",
+    "subtitle": "clients satisfaits",
+    "testimonial1": {
+      "quote": "Collaborer avec EMB était un plaisir absolu. Son professionnalisme, sa promptitude et son dévouement à fournir des résultats exceptionnels étaient évidents tout au long de notre projet.",
+      "name": "Miguel Rodriguez",
+      "title": "Directeur Produit, TechStart"
+    },
+    "testimonial2": {
+      "quote": "La qualité du travail d'EMB a dépassé nos attentes. Il a livré une solution robuste et évolutive qui a complètement transformé notre présence numérique.",
+      "name": "Ana Garcia",
+      "title": "PDG, InnovaWeb"
+    },
+    "testimonial3": {
+      "quote": "EMB a démontré un niveau exceptionnel d'expertise technique et de créativité. Sa capacité à transformer des idées complexes en solutions élégantes est impressionnante.",
+      "name": "Carlos Lopez",
+      "title": "CTO, DigitalForward"
+    },
+    "testimonial4": {
+      "quote": "Travailler avec EMB était une expérience fantastique. Son attention aux détails et son engagement envers l'excellence se reflétaient dans chaque aspect du projet.",
+      "name": "Laura Martin",
+      "title": "Directrice Marketing, BrandEvolution"
+    },
+    "testimonial5": {
+      "quote": "EMB n'a pas seulement répondu à nos exigences techniques, mais a aussi apporté des idées précieuses qui ont considérablement amélioré le résultat final.",
+      "name": "David Sanchez",
+      "title": "Fondateur, StartupHub"
+    }
+  },
+
+  "footer": {
+    "readyText": "Prêt à porter votre",
+    "readyHighlight": "présence numérique au niveau supérieur ?",
+    "contactText": "Contactez-moi aujourd'hui et discutons de la façon dont je peux vous aider à atteindre vos objectifs.",
+    "contactButton": "Parlons-en",
+    "copyright": "Copyright 2024 EMB Portfolio"
+  }
+}

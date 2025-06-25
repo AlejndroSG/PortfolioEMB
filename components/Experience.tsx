@@ -1,13 +1,18 @@
-import React from "react";
+"use client";
 
+import React from "react";
 import { workExperience } from "@/data";
 import { Button } from "./ui/MovingBorders";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Experience = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="py-20 w-full">
       <h1 className="heading">
-        Nuestra <span className="text-purple">experiencia</span>
+        {t("experience.title")}{" "}
+        <span className="text-purple">{t("experience.subtitle")}</span>
       </h1>
 
       <div className="w-full mt-12 grid lg:grid-cols-4 grid-cols-1 gap-10">
@@ -37,10 +42,10 @@ const Experience = () => {
               />
               <div className="lg:ms-5">
                 <h1 className="text-start text-xl md:text-2xl font-bold">
-                  {card.title}
+                  {t(`experience.work${card.id}.title`)}
                 </h1>
                 <p className="text-start text-white-100 mt-3 font-semibold">
-                  {card.desc}
+                  {t(`experience.work${card.id}.description`)}
                 </p>
               </div>
             </div>

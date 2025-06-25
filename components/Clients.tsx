@@ -1,25 +1,29 @@
 "use client";
 
 import React from "react";
-
-import { companies, testimonials } from "@/data";
 import { InfiniteMovingCards } from "./ui/InfiniteCards";
+import { companies, testimonials } from "@/data";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Clients = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="testimonials" className="py-20">
       <h1 className="heading">
-        Palabras amables de
-        <span className="text-purple"> clientes satisfechos</span>
+        {t("testimonials.title")}{" "}
+        <span className="text-purple">{t("testimonials.subtitle")}</span>
       </h1>
 
       <div className="flex flex-col items-center max-lg:mt-10">
-        <div
-          // remove bg-white dark:bg-black dark:bg-grid-white/[0.05], h-[40rem] to 30rem , md:h-[30rem] are for the responsive design
-          className="h-[50vh] md:h-[30rem] rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden"
-        >
+        <div className="h-[50vh] md:h-[30rem] rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden">
           <InfiniteMovingCards
-            items={testimonials}
+            items={testimonials.map((item, index) => ({
+              id: index + 1,
+              quote: t(`testimonials.testimonial${index + 1}.quote`),
+              name: t(`testimonials.testimonial${index + 1}.name`),
+              title: t(`testimonials.testimonial${index + 1}.title`),
+            }))}
             direction="right"
             speed="slow"
           />

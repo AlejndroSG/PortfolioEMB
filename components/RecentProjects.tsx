@@ -1,18 +1,20 @@
 "use client";
 
 import { FaLocationArrow } from "react-icons/fa6";
-import OptimizedImage from "./ui/OptimizedImage";
-
 import { projects } from "@/data";
 import { PinContainer } from "./ui/Pin";
+import { useLanguage } from "../contexts/LanguageContext";
+import OptimizedImage from "./ui/OptimizedImage";
 
 const RecentProjects = () => {
+  const { t } = useLanguage();
+
   return (
-    <div id="projects" className="py-20">
+    <div className="py-20" id="projects">
       <div className="mb-16">
         <h1 className="heading bg-black-100 p-4 rounded-lg">
-          Una pequeña selección de{" "}
-          <span className="text-purple font-bold">proyectos recientes</span>
+          {t("projects.title")}{" "}
+          <span className="text-purple font-bold">{t("projects.subtitle")}</span>
         </h1>
       </div>
       <div className="flex flex-wrap items-center justify-center p-4 gap-16 mt-10">
@@ -44,7 +46,7 @@ const RecentProjects = () => {
               </div>
 
               <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
-                {item.title}
+                {t(`projects.project${item.id}.title`)}
               </h1>
 
               <p
@@ -54,7 +56,7 @@ const RecentProjects = () => {
                   margin: "1vh 0",
                 }}
               >
-                {item.des}
+                {t(`projects.project${item.id}.description`)}
               </p>
 
               <div className="flex items-center justify-between mt-7 mb-3">
@@ -74,7 +76,7 @@ const RecentProjects = () => {
 
                 <div className="flex justify-center items-center bg-gradient-to-r from-purple/80 to-blue-500/80 px-4 py-2 rounded-lg hover:from-purple hover:to-blue-600 transition-all duration-300 group/details shadow-lg hover:shadow-purple/30 border border-white/10">
                   <p className="flex text-sm font-medium text-white">
-                    Explorar Proyecto
+                    {t("projects.exploreButton")}
                   </p>
                   <FaLocationArrow className="ms-2 group-hover/details:translate-x-1 transition-transform duration-300" color="white" />
                 </div>
