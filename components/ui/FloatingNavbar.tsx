@@ -59,6 +59,13 @@ export const FloatingNav = ({
   const handleNavigation = (navItem: any, idx: number) => {
     setMobileMenuOpen(false);
     
+    // Si el enlace comienza con '/', navegar usando el router
+    if (navItem.link.startsWith('/')) {
+      router.push(navItem.link);
+      return;
+    }
+    
+    // Para enlaces que son anclas (#algo)
     if (isProjectPage) {
       router.push(`/${navItem.link}`);
     } else {

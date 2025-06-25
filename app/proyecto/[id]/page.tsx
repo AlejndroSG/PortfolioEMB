@@ -239,17 +239,17 @@ const ProjectDetails = ({ proyecto }: { proyecto: any }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2 + index * 0.2, duration: 0.6 }}
             whileHover={{ y: -10, scale: 1.02 }}
-            className="relative group"
+            className="relative group h-full"
           >
             <div className="absolute -inset-1 bg-gradient-to-r from-purple to-cyan-400 rounded-2xl opacity-25 blur group-hover:opacity-75 transition duration-300"></div>
-            <div className="relative bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-8 rounded-2xl border border-white/10 shadow-xl backdrop-blur-sm">
+            <div className="relative bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-8 rounded-2xl border border-white/10 shadow-xl backdrop-blur-sm h-full flex flex-col">
               <div className="flex items-center mb-6">
-                <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${detail.gradient} flex items-center justify-center text-2xl mr-4 shadow-lg`}>
+                <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${detail.gradient} flex items-center justify-center text-2xl mr-4 shadow-lg flex-shrink-0`}>
                   {detail.icon}
                 </div>
                 <h3 className="text-xl font-bold text-white">{detail.title}</h3>
               </div>
-              <p className="text-white-200 leading-relaxed">{detail.content}</p>
+              <p className="text-white-200 leading-relaxed flex-grow">{detail.content}</p>
             </div>
           </motion.div>
         ))}
