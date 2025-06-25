@@ -390,14 +390,14 @@ const ProyectoDetalle = () => {
       <div className="absolute inset-0 overflow-hidden">
         {/* Grid de fondo */}
         <div className="w-full absolute left-0 top-0 h-screen opacity-20">
-          <Image
+          {/* <Image
             src="/footer-grid.svg"
             alt="grid"
             fill
             sizes="100vw"
             className="w-full h-full"
             style={{ objectFit: "cover" }}
-          />
+          /> */}
         </div>
         
         {/* Efectos de luz ambiental */}

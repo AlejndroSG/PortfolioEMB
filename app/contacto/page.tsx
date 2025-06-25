@@ -349,11 +349,11 @@ const ContactPage = () => {
       <div className="w-full bg-black-100 pt-10 pb-10 relative z-10">
         {/* Grid de fondo similar al Footer original */}
         <div className="w-full absolute left-0 -bottom-0 min-h-96">
-          <img
+          {/* <img
             src="/footer-grid.svg"
             alt="grid"
             className="w-full h-full opacity-50"
-          />
+          /> */}
         </div>
         
         {/* Solo la parte inferior del footer con copyright y redes sociales */}
