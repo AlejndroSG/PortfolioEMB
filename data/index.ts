@@ -2,7 +2,7 @@ export const navItems = [
   { name: "Nosotros", link: "#about" },
   { name: "Proyectos", link: "#projects" },
   { name: "Testimonios", link: "#testimonials" },
-  { name: "Contacto", link: "#contact" },
+  { name: "Contacto", link: "/contacto" },
 ];
 
 export const gridItems = [
@@ -224,14 +224,26 @@ export const workExperience = [
 export const socialMedia = [
   {
     id: 1,
-    img: "/git.svg",
+    name: "Instagram",
+    img: "/instagram.svg",
+    link: "#"
   },
   {
     id: 2,
-    img: "/twit.svg",
+    name: "Facebook",
+    img: "/facebook.svg",
+    link: "#"
   },
   {
     id: 3,
-    img: "/link.svg",
+    name: "LinkedIn",
+    img: "/linkedin.svg",
+    link: "#"
+  },
+  {
+    id: 4,
+    name: "TikTok",
+    img: "/tiktok.svg",
+    link: "#"
   },
 ];
