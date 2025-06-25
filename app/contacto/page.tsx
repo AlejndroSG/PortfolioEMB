@@ -39,7 +39,7 @@ const ContactPage = () => {
       />
       
       {/* Navegación flotante */}
-      <FloatingNav navItems={navItems} />
+      <FloatingNav />
       
       <main className="relative min-h-screen bg-black-100 overflow-hidden pt-10">
         {/* Partículas flotantes decorativas */}

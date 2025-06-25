@@ -136,7 +136,7 @@ const Home = () => {
       <HomeButton />
       
       <div className="max-w-7xl w-full">
-        <FloatingNav navItems={navItems} />
+        <FloatingNav/>
         
         {/* Hero con animación de aparición */}
         <AnimatedElement animation="fade-up" duration={0.4}>

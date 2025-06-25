@@ -412,7 +412,7 @@ const ProyectoDetalle = () => {
       <HomeButton />
 
       <div className="max-w-7xl w-full relative z-10">
-        <FloatingNav navItems={navItems} />
+        <FloatingNav />
 
         <div className="py-20">
           <div className="flex flex-col items-center">
