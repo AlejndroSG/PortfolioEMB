@@ -141,6 +141,29 @@ const MediaGallery = ({ proyecto }: { proyecto: any }) => {
               </div>
             </div>
           </div>
+        ) :proyecto.id === 4 ? (
+          // Video showcase para Iphone 15 Pro con título
+          <div className="relative bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl w-full mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center bg-gradient-to-r from-purple via-blue-500 to-cyan-400 bg-clip-text text-transparent">
+              Iphone 15 Pro
+            </h2>
+            <div className="relative overflow-hidden rounded-2xl w-full mx-auto max-w-6xl">
+              <div
+                className="relative w-full overflow-hidden rounded-xl shadow-2xl"
+                style={{ paddingBottom: "75%" }}
+              >
+                <div className="absolute -inset-2 bg-gradient-to-r from-purple via-blue-500 to-cyan-400 rounded-xl opacity-75 blur-md"></div>
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-xl z-10"
+                  src="https://www.youtube.com/embed/3myY7KdEcoE"
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen={true}
+                />
+              </div>
+            </div>
+          </div>
         ) : (
           // Imagen showcase para otros proyectos
           <div className="relative bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-8 rounded-3xl border border-white/10 shadow-2xl">
@@ -209,9 +232,9 @@ const TechStack = ({ proyecto }: { proyecto: any }) => {
               <Image
                 src={icon}
                 alt={`tecnología-${index}`}
-                width={40}
-                height={40}
-                className="p-3"
+                width={60}
+                height={60}
+                className="p-1"
               />
             </div>
           </motion.div>
