@@ -292,9 +292,9 @@ const ContactPage = () => {
                     {/* Líneas de código decorativas */}
                     <div className="absolute bottom-8 left-6 text-xs font-mono text-white/30">
                       <div>const EMB = {'{'};</div>
-                      <div>&nbsp;&nbsp;location: "Granada",</div>
-                      <div>&nbsp;&nbsp;passion: "Development",</div>
-                      <div>&nbsp;&nbsp;focus: "Quality"</div>
+                      <div>&nbsp;&nbsp;location: &quot;Granada&quot;,</div>
+                      <div>&nbsp;&nbsp;passion: &quot;Development&quot;,</div>
+                      <div>&nbsp;&nbsp;focus: &quot;Quality&quot;</div>
                       <div>{'}'};</div>
                     </div>
                   </div>
