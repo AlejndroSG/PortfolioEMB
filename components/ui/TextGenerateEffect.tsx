@@ -12,9 +12,20 @@ export const TextGenerateEffect = ({
 }) => {
   const [scope, animate] = useAnimate();
   let wordsArray = words.split(" ");
-  useEffect(() => {
-    console.log(wordsArray);
-    animate(
+  
+  // Esta función resetea y ejecuta la animación
+  const runAnimation = async () => {
+    // Primero reseteamos todas las opacidades a 0
+    await animate(
+      "span",
+      {
+        opacity: 0,
+      },
+      { duration: 0 } // Sin duración para que sea instantáneo
+    );
+    
+    // Luego ejecutamos la animación con delay
+    await animate(
       "span",
       {
         opacity: 1,
@@ -24,7 +35,14 @@ export const TextGenerateEffect = ({
         delay: stagger(0.2),
       }
     );
-  }, [scope.current]);
+  };
+  
+  // Se ejecuta cuando cambia words (cuando cambia el idioma)
+  useEffect(() => {
+    if (scope.current) {
+      runAnimation();
+    }
+  }, [words, scope.current]);
 
   const renderWords = () => {
     return (
@@ -32,7 +50,7 @@ export const TextGenerateEffect = ({
         {wordsArray.map((word, idx) => {
           return (
             <motion.span
-              key={word + idx}
+              key={`${word}-${idx}-${words}`} // Usar words en la key para asegurar re-renderización
               // change here if idx is greater than 3, change the text color to #CBACF9
               className={` ${idx > 3 ? "text-purple" : "dark:text-white text-black"
                 } opacity-0`}

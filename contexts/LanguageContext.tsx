@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 // Importar todas las traducciones
 import es from '../messages/es.json';
@@ -18,9 +18,42 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const translations = { es, en, fr };
+const availableLanguages: Language[] = ['es', 'en', 'fr'];
+
+// Función para obtener el idioma del navegador o usar español por defecto
+const getInitialLanguage = (): Language => {
+  // Solo ejecutar en el cliente
+  if (typeof window !== 'undefined') {
+    // Comprobar si hay un idioma guardado en localStorage
+    const savedLanguage = localStorage.getItem('language') as Language;
+    if (savedLanguage && availableLanguages.includes(savedLanguage)) {
+      return savedLanguage;
+    }
+    
+    // Detectar el idioma del navegador
+    const browserLanguage = navigator.language.split('-')[0] as Language;
+    if (browserLanguage && availableLanguages.includes(browserLanguage)) {
+      return browserLanguage;
+    }
+  }
+  
+  // Si no hay coincidencia o estamos en el servidor, usar español por defecto
+  return 'es';
+};
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>('es');
+  
+  // Inicializar el idioma al cargar el componente
+  useEffect(() => {
+    const initialLanguage = getInitialLanguage();
+    setLanguage(initialLanguage);
+  }, []);
+  
+  // Guardar el idioma en localStorage cuando cambie
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
 
   const t = (key: string): string => {
     const keys = key.split('.');
