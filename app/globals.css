@@ -136,6 +136,49 @@ body {
     transform-style: preserve-3d;
   }
   
+  /* Estilos para el selector de idiomas épico */
+  .perspective-container {
+    perspective: 800px;
+    transform-style: preserve-3d;
+  }
+  
+  @keyframes glowing {
+    0% {
+      box-shadow: 0 0 5px rgba(139, 92, 246, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.5);
+    }
+    100% {
+      box-shadow: 0 0 5px rgba(139, 92, 246, 0.5);
+    }
+  }
+  
+  .glow-effect {
+    animation: glowing 3s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -100% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 25%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
   @keyframes float {
     0% {
       transform: translateY(0) translateX(0);

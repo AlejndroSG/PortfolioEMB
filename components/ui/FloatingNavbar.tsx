@@ -1,62 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
+import { EpicLanguageSelector } from "./EpicLanguageSelector";
+import { SimpleLanguageSelector } from "./SimpleLanguageSelector";
 
-const LanguageSelector = () => {
-  const { language, setLanguage } = useLanguage();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const languages = [
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  ];
-
-  const currentLang = languages.find(lang => lang.code === language);
-
+// Componente flotante para el selector de idiomas (fuera del navbar)
+// Solo visible en pantallas desktop (md:)
+const FixedLanguageSelector = () => {
   return (
-    <div className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-slate-800/50 transition-colors"
-      >
-        <span className="text-lg">{currentLang?.flag}</span>
-        <span className="text-sm font-medium">{currentLang?.code.toUpperCase()}</span>
-      </button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute top-full right-0 mt-2 bg-slate-900/95 backdrop-blur-sm border border-slate-700 rounded-lg shadow-lg min-w-[140px] z-50"
-          >
-            {languages.map((lang) => (
-              <button
-                key={lang.code}
-                onClick={() => {
-                  setLanguage(lang.code as any);
-                  setIsOpen(false);
-                }}
-                className={cn(
-                  "w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-slate-800/50 transition-colors first:rounded-t-lg last:rounded-b-lg",
-                  language === lang.code && "bg-purple/20 text-purple"
-                )}
-              >
-                <span className="text-lg">{lang.flag}</span>
-                <span className="text-sm font-medium">{lang.name}</span>
-              </button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className="fixed top-4 right-4 z-[6000] hidden md:block">
+      <EpicLanguageSelector />
     </div>
   );
 };
@@ -150,34 +109,38 @@ export const FloatingNav = ({
   };
 
   return (
-    <AnimatePresence mode="sync">
-      <motion.div
-        key="navbar"
-        initial={{
-          opacity: 1,
-          y: -100,
-        }}
-        animate={{
-          y: visible ? 0 : -100,
-          opacity: visible ? 1 : 0,
-        }}
-        transition={{
-          duration: 0.2,
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-        }}
-        className={cn(
-          "flex flex-wrap items-center justify-between w-[95%] sm:w-auto max-w-fit md:min-w-[70vw] lg:min-w-fit fixed z-[5000] top-5 sm:top-10 inset-x-0 mx-auto px-4 sm:px-8 py-3 sm:py-4 rounded-2xl backdrop-blur-xl border dark:border-white/10 border-black/10 shadow-lg dark:shadow-purple-900/20",
-          className
-        )}
-        style={{
-          backdropFilter: "blur(16px) saturate(180%)",
-          backgroundColor: "rgba(17, 25, 40, 0.75)",
-          borderRadius: "12px",
-          border: "1px solid rgba(255, 255, 255, 0.125)",
-        }}
-      >
+    <>
+      {/* Selector de idioma fijo (fuera del navbar) */}
+      <FixedLanguageSelector />
+      
+      <AnimatePresence mode="sync">
+        <motion.div
+          key="navbar"
+          initial={{
+            opacity: 1,
+            y: -100,
+          }}
+          animate={{
+            y: visible ? 0 : -100,
+            opacity: visible ? 1 : 0,
+          }}
+          transition={{
+            duration: 0.2,
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+          }}
+          className={cn(
+            "flex flex-wrap items-center justify-between w-[95%] sm:w-auto max-w-fit md:min-w-[70vw] lg:min-w-fit fixed z-[5000] top-5 sm:top-10 inset-x-0 mx-auto px-4 sm:px-8 py-3 sm:py-4 rounded-2xl backdrop-blur-xl border dark:border-white/10 border-black/10 shadow-lg dark:shadow-purple-900/20",
+            className
+          )}
+          style={{
+            backdropFilter: "blur(16px) saturate(180%)",
+            backgroundColor: "rgba(17, 25, 40, 0.75)",
+            borderRadius: "12px",
+            border: "1px solid rgba(255, 255, 255, 0.125)",
+          }}
+        >
         {/* Logo */}
         <Link href="/" className="flex items-center group">
           <div className="relative w-7 h-7 sm:w-8 sm:h-8 mr-1 sm:mr-2 overflow-hidden transition-all duration-300 group-hover:scale-110">
@@ -214,10 +177,7 @@ export const FloatingNav = ({
           ))}
         </nav>
         
-        {/* Selector de idioma */}
-        <div className="hidden md:block">
-          <LanguageSelector />
-        </div>
+        {/* El selector de idioma está ahora fuera del navbar como componente independiente */}
         
         {/* Botón de menú hamburguesa (solo móvil) */}
         <motion.button
@@ -226,19 +186,26 @@ export const FloatingNav = ({
           className="block md:hidden ml-auto p-2 rounded-lg hover:bg-white/10 transition-colors focus:outline-none"
           aria-label="Menú"
         >
-          <div className="relative w-5 h-5 flex flex-col justify-between">
-            <motion.span 
-              animate={{ rotate: mobileMenuOpen ? 45 : 0, y: mobileMenuOpen ? 8 : 0 }}
-              className="h-[2px] w-full bg-white/90 rounded-full transform origin-left transition-transform"
-            />
-            <motion.span 
-              animate={{ opacity: mobileMenuOpen ? 0 : 1 }}
-              className="h-[2px] w-full bg-white/90 rounded-full transition-opacity"
-            />
-            <motion.span 
-              animate={{ rotate: mobileMenuOpen ? -45 : 0, y: mobileMenuOpen ? -8 : 0 }}
-              className="h-[2px] w-full bg-white/90 rounded-full transform origin-left transition-transform"
-            />
+          <div className="relative w-5 h-5 flex items-center justify-center">
+            {mobileMenuOpen ? (
+              // Cruz mejorada cuando el menú está abierto
+              <motion.div
+                initial={{ opacity: 0, rotate: 0 }}
+                animate={{ opacity: 1, rotate: 90 }} 
+                className="w-5 h-5 flex items-center justify-center"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L15 15M1 15L15 1" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </motion.div>
+            ) : (
+              // Menú hamburguesa cuando está cerrado
+              <div className="flex flex-col justify-between h-5 w-6">
+                <motion.span className="h-[2px] w-full bg-white/90 rounded-full" />
+                <motion.span className="h-[2px] w-full bg-white/90 rounded-full" />
+                <motion.span className="h-[2px] w-full bg-white/90 rounded-full" />
+              </div>
+            )}
           </div>
         </motion.button>
       </motion.div>
@@ -290,10 +257,22 @@ export const FloatingNav = ({
                   <span className="font-medium text-white/90">{navItem.name}</span>
                 </motion.div>
               ))}
+              
+              {/* Selector simple de idioma en móvil (solo aparece en el menú) */}
+              <motion.div
+                variants={{
+                  open: { y: 0, opacity: 1 },
+                  closed: { y: -15, opacity: 0 }
+                }}
+                className="mt-3 px-4 py-3 border-t border-white/10"
+              >
+                <SimpleLanguageSelector />
+              </motion.div>
             </motion.nav>
           </motion.div>
         )}
       </AnimatePresence>
-    </AnimatePresence>
+      </AnimatePresence>
+    </>
   );
 };
