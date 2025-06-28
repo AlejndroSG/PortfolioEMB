@@ -1,44 +1,48 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
-  // Configuración para imágenes
+  // Salida como sitio estático (importante para next export)
+  output: 'export',
+  
+  // Añadir trailing slash para mejor compatibilidad con hosting estático
+  trailingSlash: true,
+
+  // Configuración de imágenes
   images: {
-    unoptimized: true,
+    unoptimized: true, // Necesario para export estático
     domains: ['images.unsplash.com', 'img.youtube.com'],
     formats: ['image/webp'],
   },
-  // Configuración para ignorar errores durante la compilación
+
+  // Ignorar errores de TypeScript al compilar (no recomendado en producción)
   typescript: {
     ignoreBuildErrors: true,
   },
+
+  // Ignorar errores de ESLint durante la build
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Desactivar la pre-renderización estrictamente para rutas problemáticas
+
+  // Configuración experimental (opcional, si no usas SSR ni middleware)
   experimental: {
     workerThreads: false,
     cpus: 1,
-    // Configuración para ignorar errores de prerender
     isrFlushToDisk: false,
     optimizeCss: false,
     scrollRestoration: false,
     swcTraceProfiling: true,
   },
-  // Configuración para seguir con los errores en runtime
+
+  // Modo estricto de React desactivado (útil si tienes librerías antiguas)
   reactStrictMode: false,
-  // Evitar errores de prerendered
+
+  // Mantener páginas en caché más tiempo durante el desarrollo
   onDemandEntries: {
-    // Aumentar el tiempo de espera para evitar timeouts
-    maxInactiveAge: 60 * 60 * 1000,
-    // No permitir que páginas con error bloqueen la compilación
+    maxInactiveAge: 60 * 60 * 1000, // 1 hora
     pagesBufferLength: 10,
   },
-  // Permitir la compilación a pesar de los errores
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+
 };
 
 module.exports = nextConfig;

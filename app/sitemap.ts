@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 // URL base del sitio
-const baseUrl = process.env.SITE_URL || 'https://emb-portfolio.com';
+const baseUrl = process.env.SITE_URL || 'http://37.59.118.66:8080';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Rutas principales del sitio

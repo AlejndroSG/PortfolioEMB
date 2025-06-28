@@ -48,7 +48,7 @@ export async function generateMetadata({
     openGraph: {
       title: "EMB Portfolio",
       description: (messages as any).metadata?.description || "Soluciones Tecnológicas Innovadoras",
-      url: "https://emb-portfolio.com",
+      url: "http://37.59.118.66:8080",
       siteName: "EMB Portfolio",
       locale: locale,
       type: "website",

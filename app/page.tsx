@@ -18,9 +18,11 @@ import FloatingParticles from "@/components/ui/FloatingParticles";
 import { AnimatedElement, StaggeredContainer, ParallaxElement, ScrollProgress } from "@/components/ui/ScrollAnimations";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaPlay, FaTimes } from "react-icons/fa";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Componente para el modal de video profesional
 const VideoShowcase = () => {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const youtubeId = "tcPjlcTtt20"; // ID del video de YouTube
   
@@ -63,8 +65,8 @@ const VideoShowcase = () => {
                   >
                     <FaPlay className="text-white text-2xl ml-1" />
                   </motion.div>
-                  <h3 className="mt-6 text-xl font-semibold text-center px-4">Descubre nuestra propuesta de valor</h3>
-                  <p className="mt-2 text-white/70 text-center max-w-md px-4">Mira nuestro video promocional y conoce cómo podemos ayudarte a transformar tu visión en realidad.</p>
+                  <h3 className="mt-6 text-xl font-semibold text-center px-4"> {t("video.title")}</h3>
+                  <p className="mt-2 text-white/70 text-center max-w-md px-4">{t("video.title2")}.</p>
                 </div>
               </div>
               

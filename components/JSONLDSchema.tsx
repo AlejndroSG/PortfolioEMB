@@ -42,8 +42,8 @@ interface JSONLDSchemaProps {
 export default function JSONLDSchema({ 
   organization = {
     name: "EMB Portfolio",
-    url: "https://emb-portfolio.com",
-    logo: "https://emb-portfolio.com/emb-logo.svg",
+    url: "http://37.59.118.66:8080",
+    logo: "http://37.59.118.66:8080/emb-logo.svg",
     sameAs: ["https://twitter.com/emb", "https://linkedin.com/company/emb", "https://github.com/emb", "https://instagram.com/emb"],
     description: "EMB ofrece soluciones tecnológicas innovadoras para empresas",
     email: "contacto@emb-portfolio.com",

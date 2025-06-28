@@ -1,5 +1,6 @@
 {
   "navigation": {
+    "about":"A propos",
     "home": "Accueil",
     "projects": "Projets", 
     "testimonials": "Témoignages",
@@ -12,6 +13,11 @@
     "greeting": "Salut ! Je suis",
     "role": "EMB, développeur Full Stack",
     "projectsButton": "Voir mes projets"
+  },
+
+  "video": {
+    "title": "Découvrez notre proposition de valeur",
+    "title2": "Regardez notre vidéo promotionnelle et découvrez comment nous pouvons vous aider à transformer votre vision en réalité"
   },
 
   "grid": {
