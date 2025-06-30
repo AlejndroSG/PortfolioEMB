@@ -2,7 +2,7 @@
 
 const nextConfig = {
   // Salida como sitio estático (importante para next export)
-  output: 'export',
+  // output: 'export',
   
   // Añadir trailing slash para mejor compatibilidad con hosting estático
   trailingSlash: true,
