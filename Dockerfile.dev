@@ -1,0 +1,16 @@
+# Dockerfile.dev
+FROM node:20-alpine
+WORKDIR /app
+
+# Instala dependencias
+COPY package*.json ./
+RUN npm install
+
+# Copia el resto del código
+COPY . .
+
+# Expón el puerto
+EXPOSE 3000
+
+# Ejecuta en modo desarrollo (hot reload)
+CMD ["npm", "run", "dev"]
