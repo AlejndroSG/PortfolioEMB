@@ -27,7 +27,7 @@ const RecentProjects = () => {
               title={item.title}
               href={`/proyecto/${item.id}`}
             >
-              <div className="relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
+              <div className="relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden h-[15vh] xl:h-[20vh] lg:h-[17vh] mb-10">
                 <div
                   className="relative w-full h-full overflow-hidden lg:rounded-3xl group"
                   style={{ backgroundColor: "#13162D" }}
