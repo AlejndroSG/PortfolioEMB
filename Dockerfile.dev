@@ -1,16 +1,19 @@
 # Dockerfile.dev
 FROM node:20-alpine
+
 WORKDIR /app
 
-# Instala dependencias
-COPY package*.json ./
+# Copia los archivos de dependencias
+COPY package.json package-lock.json* ./
+
+# Instala TODAS las dependencias, incluidas las de desarrollo
 RUN npm install
 
-# Copia el resto del código
+# Copia el resto del proyecto
 COPY . .
 
-# Expón el puerto
+# Expón el puerto de desarrollo
 EXPOSE 3000
 
-# Ejecuta en modo desarrollo (hot reload)
+# Inicia el servidor Next.js en modo dev (hot reload)
 CMD ["npm", "run", "dev"]
