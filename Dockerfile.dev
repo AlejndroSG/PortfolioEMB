@@ -1,19 +1,23 @@
 # Dockerfile.dev
 FROM node:20-alpine
 
+# Instala dependencias necesarias del sistema (útil para debugging y dependencias nativas)
+RUN apk add --no-cache bash
+
+# Directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos de dependencias
+# Copiar solo archivos de dependencias primero (mejor uso de la cache)
 COPY package.json package-lock.json* ./
 
-# Instala TODAS las dependencias, incluidas las de desarrollo
+# Instalar todas las dependencias (incluye las devDependencies)
 RUN npm install
 
-# Copia el resto del proyecto
+# Copiar el resto del código
 COPY . .
 
-# Expón el puerto de desarrollo
+# Exponer el puerto de desarrollo de Next.js
 EXPOSE 3000
 
-# Inicia el servidor Next.js en modo dev (hot reload)
+# Comando para desarrollo (hot reload activo)
 CMD ["npm", "run", "dev"]
