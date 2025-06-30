@@ -60,10 +60,10 @@ export const FloatingNav = ({
 
   // Definir los elementos de navegación
   const navItems = [
-    { name: t('navigation.about'), link: "#about", icon: "👤" },
-    { name: t('navigation.projects'), link: "#projects", icon: "🚀" },
-    { name: t('navigation.testimonials'), link: "#testimonials", icon: "💬" },
-    { name: t('navigation.contact'), link: "#contact", icon: "✉️" },
+    { name: t('navigation.about'), link: "#about", icon: "" },
+    { name: t('navigation.projects'), link: "#projects", icon: "" },
+    { name: t('navigation.testimonials'), link: "#testimonials", icon: "" },
+    { name: t('navigation.contact'), link: "#contact", icon: "" },
   ];
 
   // Manejar navegación (cerrar menú después de elegir)
@@ -143,7 +143,7 @@ export const FloatingNav = ({
         >
         {/* Logo */}
         <Link href="/" className="flex items-center group">
-          <div className="relative w-7 h-7 sm:w-8 sm:h-8 mr-1 sm:mr-2 overflow-hidden transition-all duration-300 group-hover:scale-110">
+          <div className="relative w-7 h-7 sm:w-8 sm:h-8 mr-1 sm:mr-2 hidden md:block overflow-hidden transition-all duration-300 group-hover:scale-110">
             <Image 
               src="/logofinal.jpg" 
               alt="EMB Logo"
@@ -152,14 +152,14 @@ export const FloatingNav = ({
               priority
             />
           </div>
-          <span className="text-white/90 font-semibold text-sm sm:text-base group-hover:text-white transition-colors">EMB</span>
+          <span className="text-white/90 font-semibold hidden md:block text-sm sm:text-base group-hover:text-white transition-colors">EMB</span>
         </Link>
 
         {/* Divisor visible solo en desktop */}
         <div className="h-6 border-r border-white/10 mx-2 hidden md:block"></div>
 
         {/* Navegación desktop */}
-        <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+        <nav className="hidden sm:flex items-center gap-1 lg:gap-2">
           {navItems.map((navItem, idx) => (
             <motion.div
               key={`link-${idx}`}
@@ -251,9 +251,8 @@ export const FloatingNav = ({
                   }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleNavigation(navItem, idx)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 cursor-pointer transition-colors"
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 cursor-pointer transition-colors "
                 >
-                  {navItem.icon && <span className="text-white/80">{navItem.icon}</span>}
                   <span className="font-medium text-white/90">{navItem.name}</span>
                 </motion.div>
               ))}

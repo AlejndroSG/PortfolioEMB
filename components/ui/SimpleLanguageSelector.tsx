@@ -14,9 +14,8 @@ export const SimpleLanguageSelector = () => {
   ];
 
   return (
-    <div className="flex flex-col space-y-2">
-      <div className="text-sm text-white/60 font-medium px-1">Idioma</div>
-      <div className="flex space-x-3">
+    <div className="flex flex-col space-y-2 w-[75%] m-auto">
+      <div className="flex mt-3 space-x-3">
         {languages.map((lang) => (
           <motion.button
             key={lang.code}
