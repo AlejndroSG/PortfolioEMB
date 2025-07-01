@@ -66,7 +66,7 @@ export default function LanguageSelector() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-full right-0 mt-2 w-48 bg-[rgba(17,25,40,0.95)] backdrop-blur-xl border border-white/10 rounded-xl shadow-lg z-50"
+              className="absolute top-full right-0 mt-2 w-48 bg-[rgba(17,25,40,0.95)] backdrop-blur-xl border border-white/10 rounded-xl shadow-lg z-50 "
             >
               <div className="py-2">
                 {languages.map((language) => (
