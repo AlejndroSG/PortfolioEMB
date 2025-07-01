@@ -40,9 +40,7 @@ const Footer = () => {
           {t("footer.copyright")}
         </p>
 
-        <div className="flex md:flex-row flex-col md:items-center items-start md:mt-0 mt-8 gap-4">
-          <p className="text-white/70 text-sm pr-2 md:block hidden">Encuéntranos en:</p>
-          
+        <div className="flex md:flex-row flex-col md:items-center items-start md:mt-0 mt-8 gap-4">          
           <div className="flex items-center md:gap-4 gap-6">
             {socialMedia.map((info) => (
               <a

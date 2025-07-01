@@ -32,13 +32,13 @@ const VideoShowcase = () => {
   return (
     <>
       <motion.div 
-        className="relative my-16 px-4 sm:px-0"
+        className="relative my-12 sm:my-16 px-4 sm:px-6 md:px-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
       >
         <div className="w-full max-w-5xl mx-auto">
-          <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-purple/40 transition-shadow duration-500 cursor-pointer bg-[#13162D]/80 border border-white/5">
+          <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-purple/40 transition-shadow duration-500 cursor-pointer bg-[#13162D]/90 border border-white/10">
             {/* Preview del video con capa de overlay */}
             <div 
               className="relative w-full aspect-video"
@@ -50,28 +50,32 @@ const VideoShowcase = () => {
                   src={thumbnailUrl}
                   alt="Video promocional"
                   fill
-                  className="object-cover opacity-80"
+                  className="object-cover opacity-90"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 60vw"
+                  priority
+                  quality={90}
                 />
               </div>
               
-              {/* Overlay con efecto de gradiente */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/50 to-black/20">
+              {/* Overlay con efecto de gradiente mejorado */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/90 via-black/70 to-black/40">
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
                   <motion.div 
-                    className="w-20 h-20 bg-purple/80 rounded-full flex items-center justify-center shadow-lg shadow-purple/30"
+                    className="w-16 h-16 sm:w-20 sm:h-20 bg-purple/90 rounded-full flex items-center justify-center shadow-lg shadow-purple/30 border border-white/20"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <FaPlay className="text-white text-2xl ml-1" />
+                    <FaPlay className="text-white text-xl sm:text-2xl ml-1" />
                   </motion.div>
-                  <h3 className="mt-6 text-xl font-semibold text-center px-4"> {t("video.title")}</h3>
-                  <p className="mt-2 text-white/70 text-center max-w-md px-4">{t("video.title2")}.</p>
+                  <div className="hidden sm:block">
+                    <h3 className="mt-6 text-xl font-semibold text-center px-4 text-white/95 drop-shadow-lg">{t("video.title")}</h3>
+                    <p className="mt-2 text-base text-white/90 text-center max-w-md px-4 drop-shadow-md">{t("video.title2")}.</p>
+                  </div>
                 </div>
               </div>
               
-              {/* Gradiente inferior */}
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/80 to-transparent"></div>
+              {/* Gradiente inferior reforzado */}
+              <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/95 to-transparent"></div>
             </div>
           </div>
         </div>
@@ -84,7 +88,7 @@ const VideoShowcase = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 px-4 sm:px-6"
+            className="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center z-50 px-3 sm:px-6 py-4"
             onClick={() => setIsOpen(false)}
           >
             {/* Contenedor del video - clickable aislado para evitar cerrar cuando se hace click en el video */}
@@ -97,21 +101,22 @@ const VideoShowcase = () => {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Contenedor del iframe con proporción de aspecto */}
-              <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl w-full aspect-video">
+              <div className="relative rounded-xl overflow-hidden border border-white/20 shadow-2xl w-full aspect-video bg-black">
                 <iframe
                   className="w-full h-full absolute inset-0"
-                  src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&showinfo=0`}
+                  src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&showinfo=0&playsinline=1&fs=1&color=white`}
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
+                  loading="eager"
                 ></iframe>
               </div>
               
               {/* Botón de cierre */}
               <button 
                 onClick={() => setIsOpen(false)}
-                className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors border border-white/10 shadow-lg"
                 aria-label="Cerrar video"
               >
                 <FaTimes className="text-white" />
