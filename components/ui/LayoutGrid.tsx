@@ -33,7 +33,7 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
   };
 
   return (
-    <div className="w-full h-full p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-w-7xl mx-auto gap-6 md:gap-8 lg:gap-10">
+    <div className="w-full h-full p-5 sm:p-8 md:p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-w-7xl mx-auto gap-3 sm:gap-5 md:gap-8 lg:gap-10">
       {cards.map((card, i) => (
         <Button
           key={i}
