@@ -60,17 +60,10 @@ export const FloatingNav = ({
 
   // Definir los elementos de navegación
   const navItems = [
-<<<<<<< HEAD
     { name: t('navigation.about'), link: "#about", icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M20.5899 22C20.5899 18.13 16.7399 15 11.9999 15C7.25991 15 3.40991 18.13 3.40991 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
     { name: t('navigation.projects'), link: "#projects", icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 10V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M22 10H18C15 10 14 9 14 6V2L22 10Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
     { name: t('navigation.testimonials'), link: "#testimonials", icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 2H8C4 2 2 4 2 8V21C2 21.55 2.45 22 3 22H16C20 22 22 20 22 16V8C22 4 20 2 16 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 9.5H17" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 14.5H14" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/></svg> },
     { name: t('navigation.contact'), link: "#contact", icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/><path d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-=======
-    { name: t('navigation.about'), link: "#about", icon: "" },
-    { name: t('navigation.projects'), link: "#projects", icon: "" },
-    { name: t('navigation.testimonials'), link: "#testimonials", icon: "" },
-    { name: t('navigation.contact'), link: "#contact", icon: "" },
->>>>>>> 3d53a36a63bc7a0ffebba5578604820d46b8ee33
   ];
 
   // Manejar navegación (cerrar menú después de elegir)
@@ -154,7 +147,7 @@ export const FloatingNav = ({
         >
         {/* Logo */}
         <Link href="/" className="flex items-center group">
-          <div className="relative w-7 h-7 sm:w-8 sm:h-8 mr-1 sm:mr-2 hidden md:block overflow-hidden transition-all duration-300 group-hover:scale-110">
+          <div className="relative w-7 h-7 sm:w-8 sm:h-8 mr-1 sm:mr-2 overflow-hidden transition-all duration-300 group-hover:scale-110">
             <Image 
               src="/logofinal.jpg" 
               alt="EMB Logo"
@@ -163,22 +156,14 @@ export const FloatingNav = ({
               priority
             />
           </div>
-<<<<<<< HEAD
           <span className="text-white font-semibold text-base sm:text-lg group-hover:text-purple-100 transition-colors">EMB</span>
-=======
-          <span className="text-white/90 font-semibold hidden md:block text-sm sm:text-base group-hover:text-white transition-colors">EMB</span>
->>>>>>> 3d53a36a63bc7a0ffebba5578604820d46b8ee33
         </Link>
 
         {/* Divisor visible solo en desktop */}
         <div className="h-6 border-r border-white/10 mx-2 hidden md:block"></div>
 
         {/* Navegación desktop */}
-<<<<<<< HEAD
         <nav className="hidden md:flex items-center gap-2 lg:gap-3">
-=======
-        <nav className="hidden sm:flex items-center gap-1 lg:gap-2">
->>>>>>> 3d53a36a63bc7a0ffebba5578604820d46b8ee33
           {navItems.map((navItem, idx) => (
             <motion.div
               key={`link-${idx}`}
@@ -273,16 +258,10 @@ export const FloatingNav = ({
                   }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleNavigation(navItem, idx)}
-<<<<<<< HEAD
                   className="flex items-center gap-3 px-5 py-3 my-1 rounded-lg hover:bg-white/10 cursor-pointer transition-colors border-l-2 border-transparent hover:border-l-2 hover:border-white/30"
                 >
                   <div className="text-white/80">{navItem.icon}</div>
                   <span className="font-medium text-white/90 tracking-wide">{navItem.name}</span>
-=======
-                  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 cursor-pointer transition-colors "
-                >
-                  <span className="font-medium text-white/90">{navItem.name}</span>
->>>>>>> 3d53a36a63bc7a0ffebba5578604820d46b8ee33
                 </motion.div>
               ))}
               
