@@ -7,12 +7,62 @@
     "contact": "Contacto"
   },
 
+  "contact": {
+    "pageTitle": "Contacto | EMB",
+    "pageDescription": "Ponte en contacto con el equipo de EMB. Estamos listos para ayudarte con tu próximo proyecto.",
+    "heading": "Hablemos sobre tu proyecto",
+    "subheading": "Estamos ansiosos por saber más sobre tu proyecto y cómo podemos ayudarte a alcanzar tus objetivos.",
+    "form": {
+      "title": "Envíanos un mensaje",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Teléfono (opcional)",
+      "message": "¿Cómo podemos ayudarte? Cuéntanos sobre tu proyecto...",
+      "submitButton": "Enviar mensaje",
+      "sending": "Enviando...",
+      "successMessage": "¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.",
+      "errorMessage": "Error al enviar el mensaje"
+    },
+    "info": {
+      "title": "Información de contacto",
+      "email": {
+        "label": "Correo electrónico",
+        "value": "info@embdevs.com"
+      },
+      "phone": {
+        "label": "Teléfono",
+        "value": "+34 123 456 789"
+      },
+      "location": {
+        "label": "Ubicación",
+        "value": "Granada, España"
+      }
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "items": [
+        {
+          "question": "¿Cuánto tiempo toma desarrollar un proyecto web?",
+          "answer": "El tiempo de desarrollo varía según la complejidad del proyecto. Un sitio web básico puede estar listo en 1 semana, mientras que aplicaciones más complejas pueden requerir hasta 1 mes o más."
+        },
+        {
+          "question": "¿Cómo funciona el proceso de trabajo?",
+          "answer": "Nuestro proceso incluye: consulta inicial, propuesta detallada, diseño de UI/UX, desarrollo, pruebas de calidad, lanzamiento y soporte post-lanzamiento. Mantenemos comunicación constante durante todo el proyecto."
+        },
+        {
+          "question": "¿Ofrecen mantenimiento después del lanzamiento?",
+          "answer": "Sí, ofrecemos planes de mantenimiento y soporte continuo para asegurar que tu sitio o aplicación funcione de manera óptima y segura después del lanzamiento."
+        }
+      ]
+    }
+  },
+
   "hero": {
     "commitment": "Comprometido con la innovación tecnológica",
     "title": "Transformando ideas en experiencias digitales excepcionales",
-    "greeting": "Hola! Soy",
-    "role": "EMB, desarrollador Full Stack",
-    "projectsButton": "Ver mis proyectos"
+    "greeting": "Hola! Somos",
+    "role": "EMB, desarrolladores Full Stack",
+    "projectsButton": "Ver nuestros proyectos"
   },
 
   "video": {
@@ -70,28 +120,28 @@
   },
 
   "experience": {
-    "title": "Mi experiencia",
+    "title": "Nuestra experiencia",
     "subtitle": "laboral",
     "work1": {
-      "title": "Desarrollador Frontend",
+      "title": "Desarrolladores Frontend",
       "description": "Creando interfaces modernas y responsivas con React y Next.js"
     },
     "work2": {
-      "title": "Desarrollador Full Stack",
+      "title": "Desarrolladores Full Stack",
       "description": "Desarrollando aplicaciones completas desde frontend hasta backend"
     },
     "work3": {
-      "title": "Desarrollador Mobile",
+      "title": "Desarrolladores Mobile",
       "description": "Creando aplicaciones móviles nativas y cross-platform"
     },
     "work4": {
-      "title": "Líder Técnico",
+      "title": "Líderes Técnicos",
       "description": "Liderando equipos de desarrollo y definiendo arquitecturas técnicas"
     }
   },
 
   "approach": {
-    "title": "Mi enfoque de",
+    "title": "Nuestro enfoque de",
     "subtitle": "desarrollo",
     "phase1": {
       "phase": "01",
@@ -143,7 +193,7 @@
   "footer": {
     "readyText": "¿Listo para llevar tu",
     "readyHighlight": "presencia digital al siguiente nivel?",
-    "contactText": "Ponte en contacto conmigo hoy mismo y vamos a discutir cómo puedo ayudarte a alcanzar tus objetivos.",
+    "contactText": "Ponte en contacto con nosotros hoy mismo y vamos a discutir cómo podemos ayudarte a alcanzar tus objetivos.",
     "contactButton": "Hablemos",
     "copyright": "Copyright 2025 EMB Portfolio"
   }

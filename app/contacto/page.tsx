@@ -9,8 +9,12 @@ import { FloatingParticles } from "@/components/FloatingParticles";
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
 import Footer from "@/components/Footer";
 import { navItems, socialMedia } from "@/data";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ContactPage = () => {
+  // Obtener las traducciones
+  const { t } = useLanguage();
+  
   // Estados para el formulario
   const [formData, setFormData] = useState({
     nombre: "",
@@ -34,8 +38,8 @@ const ContactPage = () => {
   return (
     <>
       <SEOMetaTags
-        title="Contacto | EMB"
-        description="Ponte en contacto con el equipo de EMB. Estamos listos para ayudarte con tu próximo proyecto."
+        title={t('contact.pageTitle')}
+        description={t('contact.pageDescription')}
       />
       
       {/* Navegación flotante */}
@@ -57,12 +61,12 @@ const ContactPage = () => {
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4">
               <span className="bg-gradient-to-r from-purple via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-                Hablemos sobre tu proyecto
+                {t('contact.heading')}
               </span>
             </h1>
             
             <p className="text-center text-white-200 max-w-3xl mx-auto mb-16 text-lg">
-              Estamos ansiosos por saber más sobre tu proyecto y cómo podemos ayudarte a alcanzar tus objetivos.
+              {t('contact.subheading')}
             </p>
           </motion.div>
 
@@ -75,7 +79,7 @@ const ContactPage = () => {
               className="bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl"
             >
               <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple to-cyan-400 bg-clip-text text-transparent">
-                Envíanos un mensaje
+                {t('contact.form.title')}
               </h2>
               
               <form 
@@ -102,7 +106,7 @@ const ContactPage = () => {
                       console.error('Error al parsear JSON de respuesta:', jsonError);
                       // Si falla el parse, creamos un objeto de error predeterminado
                       data = { 
-                        error: 'Error de comunicación con el servidor', 
+                        error: t('contact.form.errorMessage'), 
                         details: 'No se pudo procesar la respuesta' 
                       };
                     }
@@ -118,7 +122,7 @@ const ContactPage = () => {
                       });
                     } else {
                       // Error con respuesta HTTP: usar mensaje del servidor si está disponible
-                      let errorMsg = 'Error al enviar el mensaje';
+                      let errorMsg = t('contact.form.errorMessage');
                       if (data && data.error) {
                         errorMsg = data.error;
                         if (data.details) errorMsg += `: ${data.details}`;
@@ -144,7 +148,7 @@ const ContactPage = () => {
                     name="nombre"
                     value={formData.nombre}
                     onChange={handleChange}
-                    placeholder="Nombre completo"
+                    placeholder={t('contact.form.name')}
                     required
                     className="w-full py-3 pl-12 pr-4 rounded-xl bg-black-200/50 border border-white/5 focus:border-purple/50 focus:ring-1 focus:ring-purple/30 outline-none transition-all text-white-100"
                   />
@@ -159,13 +163,13 @@ const ContactPage = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Correo electrónico"
+                    placeholder={t('contact.form.email')}
                     required
                     className="w-full py-3 pl-12 pr-4 rounded-xl bg-black-200/50 border border-white/5 focus:border-purple/50 focus:ring-1 focus:ring-purple/30 outline-none transition-all text-white-100"
                   />
                 </div>
                 
-                <div className="relative">
+                {/* <div className="relative">
                   <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40">
                     <FaPhone />
                   </div>
@@ -174,17 +178,17 @@ const ContactPage = () => {
                     name="telefono"
                     value={formData.telefono}
                     onChange={handleChange}
-                    placeholder="Teléfono (opcional)"
+                    placeholder={t('contact.form.phone')}
                     className="w-full py-3 pl-12 pr-4 rounded-xl bg-black-200/50 border border-white/5 focus:border-purple/50 focus:ring-1 focus:ring-purple/30 outline-none transition-all text-white-100"
                   />
-                </div>
+                </div> */}
                 
                 <div>
                   <textarea
                     name="mensaje"
                     value={formData.mensaje}
                     onChange={handleChange}
-                    placeholder="¿Cómo podemos ayudarte? Cuéntanos sobre tu proyecto..."
+                    placeholder={t('contact.form.message')}
                     required
                     rows={5}
                     className="w-full py-4 px-4 rounded-xl bg-black-200/50 border border-white/5 focus:border-purple/50 focus:ring-1 focus:ring-purple/30 outline-none transition-all text-white-100"
@@ -204,12 +208,12 @@ const ContactPage = () => {
                           animate={{ rotate: 360 }}
                           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                         />
-                        Enviando...
+                        {t('contact.form.sending')}
                       </>
                     ) : (
                       <>
                         <FaPaperPlane />
-                        Enviar mensaje
+                        {t('contact.form.submitButton')}
                       </>
                     )}
                   </button>
@@ -221,7 +225,7 @@ const ContactPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-4 p-4 rounded-lg bg-green-500/10 text-green-400"
                   >
-                    ¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.
+                    {t('contact.form.successMessage')}
                   </motion.div>
                 )}
                 
@@ -246,7 +250,7 @@ const ContactPage = () => {
             >
               <div className="bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl h-full">
                 <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple to-cyan-400 bg-clip-text text-transparent">
-                  Información de contacto
+                  {t('contact.info.title')}
                 </h2>
                 
                 <div className="space-y-8">
@@ -255,28 +259,28 @@ const ContactPage = () => {
                       <FaEnvelope className="text-purple" />
                     </div>
                     <div>
-                      <h3 className="text-white-100 font-medium mb-1">Correo electrónico</h3>
-                      <p className="text-white-300">info@embdevs.com</p>
+                      <h3 className="text-white-100 font-medium mb-1">{t('contact.info.email.label')}</h3>
+                      <p className="text-white-300">{t('contact.info.email.value')}</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-4">
+                  {/* <div className="flex items-start space-x-4">
                     <div className="bg-blue-500/20 p-3 rounded-full">
                       <FaPhone className="text-blue-500" />
                     </div>
                     <div>
-                      <h3 className="text-white-100 font-medium mb-1">Teléfono</h3>
-                      <p className="text-white-300">+34 123 456 789</p>
+                      <h3 className="text-white-100 font-medium mb-1">{t('contact.info.phone.label')}</h3>
+                      <p className="text-white-300">{t('contact.info.phone.value')}</p>
                     </div>
-                  </div>
+                  </div> */}
                   
                   <div className="flex items-start space-x-4">
                     <div className="bg-cyan-400/20 p-3 rounded-full">
                       <FaLocationDot className="text-cyan-400" />
                     </div>
                     <div>
-                      <h3 className="text-white-100 font-medium mb-1">Ubicación</h3>
-                      <p className="text-white-300">Granada, España</p>
+                      <h3 className="text-white-100 font-medium mb-1">{t('contact.info.location.label')}</h3>
+                      <p className="text-white-300">{t('contact.info.location.value')}</p>
                     </div>
                   </div>
                 </div>
@@ -292,7 +296,7 @@ const ContactPage = () => {
                     {/* Líneas de código decorativas */}
                     <div className="absolute bottom-8 left-6 text-xs font-mono text-white/30">
                       <div>const EMB = {'{'};</div>
-                      <div>&nbsp;&nbsp;location: &quot;Granada&quot;,</div>
+                      <div>&nbsp;&nbsp;location: &quot;{t('contact.info.location.value').split(',')[0]}&quot;,</div>
                       <div>&nbsp;&nbsp;passion: &quot;Development&quot;,</div>
                       <div>&nbsp;&nbsp;focus: &quot;Quality&quot;</div>
                       <div>{'}'};</div>
@@ -314,22 +318,22 @@ const ContactPage = () => {
             className="mt-24 max-w-4xl mx-auto"
           >
             <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-purple to-cyan-400 bg-clip-text text-transparent">
-              Preguntas frecuentes
+              {t('contact.faq.title')}
             </h2>
             
             <div className="space-y-6">
               {[
                 {
-                  pregunta: "¿Cuánto tiempo toma desarrollar un proyecto web?",
-                  respuesta: "El tiempo de desarrollo varía según la complejidad del proyecto. Un sitio web básico puede estar listo en 1 semana, mientras que aplicaciones más complejas pueden requerir hasta 1 mes o más."
+                  pregunta: t('contact.faq.items.0.question'),
+                  respuesta: t('contact.faq.items.0.answer')
                 },
                 {
-                  pregunta: "¿Cómo funciona el proceso de trabajo?",
-                  respuesta: "Nuestro proceso incluye: consulta inicial, propuesta detallada, diseño de UI/UX, desarrollo, pruebas de calidad, lanzamiento y soporte post-lanzamiento. Mantenemos comunicación constante durante todo el proyecto."
+                  pregunta: t('contact.faq.items.1.question'),
+                  respuesta: t('contact.faq.items.1.answer')
                 },
                 {
-                  pregunta: "¿Ofrecen mantenimiento después del lanzamiento?",
-                  respuesta: "Sí, ofrecemos planes de mantenimiento y soporte continuo para asegurar que tu sitio o aplicación funcione de manera óptima y segura después del lanzamiento."
+                  pregunta: t('contact.faq.items.2.question'),
+                  respuesta: t('contact.faq.items.2.answer')
                 },
               ].map((faq, index) => (
                 <div 

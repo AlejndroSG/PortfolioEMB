@@ -7,12 +7,62 @@
     "contact": "Contact"
   },
 
+  "contact": {
+    "pageTitle": "Contact | EMB",
+    "pageDescription": "Contactez l'équipe EMB. Nous sommes prêts à vous aider avec votre prochain projet.",
+    "heading": "Parlons de votre projet",
+    "subheading": "Nous sommes impatients d'en savoir plus sur votre projet et comment nous pouvons vous aider à atteindre vos objectifs.",
+    "form": {
+      "title": "Envoyez-nous un message",
+      "name": "Nom complet",
+      "email": "Adresse e-mail",
+      "phone": "Téléphone (optionnel)",
+      "message": "Comment pouvons-nous vous aider ? Parlez-nous de votre projet...",
+      "submitButton": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "successMessage": "Merci pour votre message ! Nous vous répondrons bientôt.",
+      "errorMessage": "Erreur lors de l'envoi du message"
+    },
+    "info": {
+      "title": "Informations de contact",
+      "email": {
+        "label": "Email",
+        "value": "info@embdevs.com"
+      },
+      "phone": {
+        "label": "Téléphone",
+        "value": "+34 123 456 789"
+      },
+      "location": {
+        "label": "Emplacement",
+        "value": "Grenade, Espagne"
+      }
+    },
+    "faq": {
+      "title": "Questions fréquemment posées",
+      "items": [
+        {
+          "question": "Combien de temps faut-il pour développer un projet web ?",
+          "answer": "Le temps de développement varie en fonction de la complexité du projet. Un site web basique peut être prêt en 1 semaine, tandis que des applications plus complexes peuvent nécessiter jusqu'à 1 mois ou plus."
+        },
+        {
+          "question": "Comment fonctionne le processus de travail ?",
+          "answer": "Notre processus comprend : consultation initiale, proposition détaillée, conception UI/UX, développement, tests de qualité, lancement et support post-lancement. Nous maintenons une communication constante tout au long du projet."
+        },
+        {
+          "question": "Proposez-vous une maintenance après le lancement ?",
+          "answer": "Oui, nous proposons des plans de maintenance et un support continu pour assurer que votre site ou application fonctionne de manière optimale et sécurisée après le lancement."
+        }
+      ]
+    }
+  },
+
   "hero": {
     "commitment": "Engagé dans l'innovation technologique",
     "title": "Transformer les idées en expériences numériques exceptionnelles",
-    "greeting": "Salut ! Je suis",
+    "greeting": "Salut ! Nous sommes",
     "role": "EMB, développeur Full Stack",
-    "projectsButton": "Voir mes projets"
+    "projectsButton": "Voir nos projets"
   },
 
   "video": {
@@ -70,28 +120,28 @@
   },
 
   "experience": {
-    "title": "Mon expérience",
+    "title": "Notre expérience",
     "subtitle": "professionnelle",
     "work1": {
-      "title": "Développeur Frontend",
+      "title": "Développeurs Frontend",
       "description": "Création d'interfaces modernes et responsives avec React et Next.js"
     },
     "work2": {
-      "title": "Développeur Full Stack",
+      "title": "Développeurs Full Stack",
       "description": "Développement d'applications complètes du frontend au backend"
     },
     "work3": {
-      "title": "Développeur Mobile",
+      "title": "Développeurs Mobile",
       "description": "Création d'applications mobiles natives et cross-platform"
     },
     "work4": {
-      "title": "Lead Technique",
+      "title": "Développeurs Lead",
       "description": "Direction d'équipes de développement et définition d'architectures techniques"
     }
   },
 
   "approach": {
-    "title": "Mon approche de",
+    "title": "Notre approche de",
     "subtitle": "développement",
     "phase1": {
       "phase": "01",
@@ -114,7 +164,7 @@
     "title": "Mots gentils de",
     "subtitle": "clients satisfaits",
     "testimonial1": {
-      "quote": "Collaborer avec EMB était un plaisir absolu. Son professionnalisme, sa promptitude et son dévouement à fournir des résultats exceptionnels étaient évidents tout au long de notre projet.",
+      "quote": "Collaborer avec EMB a été un plaisir absolu. Son professionnalisme, sa promptitude et son dévouement à fournir des résultats exceptionnels étaient évidents tout au long de notre projet.",
       "name": "Miguel Rodriguez",
       "title": "Directeur Produit, TechStart"
     },
@@ -143,7 +193,7 @@
   "footer": {
     "readyText": "Prêt à porter votre",
     "readyHighlight": "présence numérique au niveau supérieur ?",
-    "contactText": "Contactez-moi aujourd'hui et discutons de la façon dont je peux vous aider à atteindre vos objectifs.",
+    "contactText": "Contactez-nous aujourd'hui et discutons de la façon dont nous pouvons vous aider à atteindre vos objectifs.",
     "contactButton": "Parlons-en",
     "copyright": "Copyright 2025 EMB Portfolio"
   }

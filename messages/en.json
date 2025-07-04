@@ -7,12 +7,62 @@
     "contact": "Contact"
   },
 
+  "contact": {
+    "pageTitle": "Contact | EMB",
+    "pageDescription": "Get in touch with the EMB team. We're ready to help you with your next project.",
+    "heading": "Let's talk about your project",
+    "subheading": "We're eager to learn more about your project and how we can help you achieve your goals.",
+    "form": {
+      "title": "Send us a message",
+      "name": "Full name",
+      "email": "Email address",
+      "phone": "Phone (optional)",
+      "message": "How can we help you? Tell us about your project...",
+      "submitButton": "Send message",
+      "sending": "Sending...",
+      "successMessage": "Thank you for your message! We'll get back to you soon.",
+      "errorMessage": "Error sending message"
+    },
+    "info": {
+      "title": "Contact information",
+      "email": {
+        "label": "Email",
+        "value": "info@embdevs.com"
+      },
+      "phone": {
+        "label": "Phone",
+        "value": "+34 123 456 789"
+      },
+      "location": {
+        "label": "Location",
+        "value": "Granada, Spain"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "How long does it take to develop a web project?",
+          "answer": "Development time varies depending on the complexity of the project. A basic website can be ready in 1 week, while more complex applications may require up to 1 month or more."
+        },
+        {
+          "question": "How does the work process function?",
+          "answer": "Our process includes: initial consultation, detailed proposal, UI/UX design, development, quality testing, launch, and post-launch support. We maintain constant communication throughout the project."
+        },
+        {
+          "question": "Do you offer maintenance after launch?",
+          "answer": "Yes, we offer maintenance plans and continuous support to ensure your site or application functions optimally and securely after launch."
+        }
+      ]
+    }
+  },
+
   "hero": {
     "commitment": "Committed to technological innovation",
     "title": "Transforming ideas into exceptional digital experiences",
-    "greeting": "Hi! I'm",
+    "greeting": "Hi! We're",
     "role": "EMB, Full Stack Developer",
-    "projectsButton": "View my projects"
+    "projectsButton": "View our projects"
   },
 
   "video": {
@@ -70,28 +120,28 @@
   },
 
   "experience": {
-    "title": "My work",
+    "title": "Our work",
     "subtitle": "experience",
     "work1": {
-      "title": "Frontend Developer",
+      "title": "Frontend Developers",
       "description": "Creating modern and responsive interfaces with React and Next.js"
     },
     "work2": {
-      "title": "Full Stack Developer",
+      "title": "Full Stack Developers",
       "description": "Developing complete applications from frontend to backend"
     },
     "work3": {
-      "title": "Mobile Developer",
+      "title": "Mobile Developers",
       "description": "Creating native and cross-platform mobile applications"
     },
     "work4": {
-      "title": "Tech Lead",
+      "title": "Tech Leads",
       "description": "Leading development teams and defining technical architectures"
     }
   },
 
   "approach": {
-    "title": "My development",
+    "title": "Our development",
     "subtitle": "approach",
     "phase1": {
       "phase": "01",
@@ -143,7 +193,7 @@
   "footer": {
     "readyText": "Ready to take your",
     "readyHighlight": "digital presence to the next level?",
-    "contactText": "Get in touch with me today and let's discuss how I can help you achieve your goals.",
+    "contactText": "Get in touch with us today and let's discuss how we can help you achieve your goals.",
     "contactButton": "Let's talk",
     "copyright": "Copyright 2025 EMB Portfolio"
   }
