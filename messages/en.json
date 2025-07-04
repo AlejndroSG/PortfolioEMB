@@ -29,10 +29,6 @@
         "label": "Email",
         "value": "info@embdevs.com"
       },
-      "phone": {
-        "label": "Phone",
-        "value": "+34 123 456 789"
-      },
       "location": {
         "label": "Location",
         "value": "Granada, Spain"

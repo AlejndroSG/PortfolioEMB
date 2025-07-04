@@ -29,10 +29,6 @@
         "label": "Email",
         "value": "info@embdevs.com"
       },
-      "phone": {
-        "label": "Téléphone",
-        "value": "+34 123 456 789"
-      },
       "location": {
         "label": "Emplacement",
         "value": "Grenade, Espagne"
