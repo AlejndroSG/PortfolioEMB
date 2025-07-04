@@ -98,6 +98,61 @@
   },
 
   "projects": {
+    "detail": {
+      "techStack": "Tecnologías Utilizadas",
+      "projectDetails": "Detalles del Proyecto",
+      "challenge": {
+        "title": "Desafío",
+        "defaultContent": "Crear una solución innovadora que resuelva problemas reales del usuario, implementando las mejores prácticas de desarrollo y diseño UX/UI."
+      },
+      "solution": {
+        "title": "Solución",
+        "defaultContent": "Desarrollo de una aplicación moderna utilizando tecnologías de vanguardia, con enfoque en la experiencia del usuario y la escalabilidad del sistema."
+      },
+      "results": {
+        "title": "Resultados",
+        "defaultContent": "Implementación exitosa que superó las expectativas del cliente, mejorando significativamente la experiencia del usuario y optimizando los procesos clave del negocio."
+      },
+      "viewProject": "Ver Proyecto",
+      "viewCode": "Ver Código",
+      "previousProject": "Anterior",
+      "nextProject": "Siguiente",
+      "notFound": "Proyecto no encontrado"
+    },
+    "items": {
+      "peakyBlinders": {
+        "title": "Peaky Blinders",
+        "description": "Plataforma interactiva desarrollada por EMB para la presentación oficial de la serie Peaky Blinders. Incluye biografías detalladas de personajes, líneas temporales interactivas y contenido exclusivo para fans. El sitio incorpora elementos visuales inspirados en la estética de la época, con animaciones sutiles que mejoran la experiencia del usuario sin comprometer el rendimiento.",
+        "client": "BBC Entertainment",
+        "category": "Entretenimiento",
+        "challenge": "Crear una experiencia inmersiva que capturara la esencia de la serie mientras se mantenía un alto rendimiento en todos los dispositivos.",
+        "solution": "EMB implementó una arquitectura React optimizada con lazy loading y una interfaz de usuario que refleja la estética de la época, manteniendo tiempos de carga mínimos y una experiencia fluida en dispositivos móviles y de escritorio."
+      },
+      "dunkinDonuts": {
+        "title": "Dunkin Donuts",
+        "description": "Rediseño completo del sitio web corporativo de Dunkin Donuts realizado por EMB, con enfoque en mejorar la experiencia de usuario y optimizar las conversiones. La plataforma incluye un sistema de pedidos online, localización de tiendas mediante geolocalización, y un panel de administración personalizado para gestionar productos, promociones y análisis de ventas en tiempo real.",
+        "client": "Dunkin Brands International",
+        "category": "E-commerce / Alimentación",
+        "challenge": "Modernizar la presencia digital de la marca mientras se implementaba un sistema de pedidos eficiente y escalable que pudiera manejar picos de tráfico.",
+        "solution": "EMB desarrolló una arquitectura Next.js con SSR para optimizar SEO y rendimiento, integró pasarelas de pago seguras, y diseñó una interfaz intuitiva que refleja la personalidad de la marca mientras facilita la conversión."
+      },
+      "learnIA": {
+        "title": "Learn IA",
+        "description": "Plataforma educativa innovadora desarrollada por EMB que utiliza inteligencia artificial para personalizar la experiencia de aprendizaje. El sistema analiza el progreso y estilo de aprendizaje de cada estudiante para adaptar el contenido, ejercicios y evaluaciones. Incluye herramientas de colaboración en tiempo real, sistema de gamificación, y análisis detallado del rendimiento para estudiantes y educadores.",
+        "client": "Instituto Tecnológico de Educación Digital",
+        "category": "Educación / Tecnología",
+        "challenge": "Desarrollar una plataforma educativa que utilizara IA para personalizar el aprendizaje mientras mantenía una alta escalabilidad y facilidad de uso para estudiantes y profesores.",
+        "solution": "EMB implementó un sistema híbrido con React en el frontend y PHP en el backend para procesamiento de datos de IA, creando algoritmos de aprendizaje adaptativo y una interfaz intuitiva que facilita tanto la enseñanza como el aprendizaje."
+      },
+      "iphone": {
+        "title": "Sitio Web 3D Animado de Apple iPhone",
+        "description": "Recreación premium del sitio web del iPhone 15 Pro desarrollada por EMB, que eleva la experiencia de usuario mediante animaciones avanzadas GSAP y efectos 3D inmersivos con Three.js. El sitio presenta el producto con transiciones fluidas, visualizaciones 3D interactivas del dispositivo, y una narrativa visual que destaca las características del producto de manera elegante y atractiva.",
+        "client": "Apple Inc. (Proyecto de demostración)",
+        "category": "Tecnología / Showcase",
+        "challenge": "Recrear la experiencia premium de Apple con animaciones fluidas y modelos 3D detallados sin comprometer el rendimiento en dispositivos de gama media y baja.",
+        "solution": "EMB utilizó Next.js con TypeScript para una base sólida, implementó Three.js para renderizado 3D optimizado con nivel de detalle adaptativo, y empleó GSAP para animaciones fluidas con alta eficiencia de recursos."
+      }
+    },
     "title": "Una pequeña selección de",
     "subtitle": "proyectos recientes",
     "exploreButton": "Explorar proyecto",

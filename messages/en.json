@@ -98,6 +98,61 @@
   },
 
   "projects": {
+    "detail": {
+      "techStack": "Technologies Used",
+      "projectDetails": "Project Details",
+      "challenge": {
+        "title": "Challenge",
+        "defaultContent": "Create an innovative solution that solves real user problems, implementing best practices in development and UX/UI design."
+      },
+      "solution": {
+        "title": "Solution",
+        "defaultContent": "Development of a modern application using cutting-edge technologies, focusing on user experience and system scalability."
+      },
+      "results": {
+        "title": "Results",
+        "defaultContent": "Successful implementation that exceeded client expectations, significantly improving the user experience and optimizing key business processes."
+      },
+      "viewProject": "View Project",
+      "viewCode": "View Code",
+      "previousProject": "Previous",
+      "nextProject": "Next",
+      "notFound": "Project not found"
+    },
+    "items": {
+      "peakyBlinders": {
+        "title": "Peaky Blinders",
+        "description": "Interactive platform developed by EMB for the official presentation of the Peaky Blinders series. Includes detailed character biographies, interactive timelines, and exclusive content for fans. The site incorporates visual elements inspired by the aesthetics of the era, with subtle animations that enhance the user experience without compromising performance.",
+        "client": "BBC Entertainment",
+        "category": "Entertainment",
+        "challenge": "Create an immersive experience that captured the essence of the series while maintaining high performance on all devices.",
+        "solution": "EMB implemented an optimized React architecture with lazy loading and a user interface that reflects the aesthetics of the era, maintaining minimal loading times and a smooth experience on mobile and desktop devices."
+      },
+      "dunkinDonuts": {
+        "title": "Dunkin Donuts",
+        "description": "Complete redesign of the Dunkin Donuts corporate website carried out by EMB, with a focus on improving user experience and optimizing conversions. The platform includes an online ordering system, store location via geolocation, and a customized administration panel to manage products, promotions, and real-time sales analysis.",
+        "client": "Dunkin Brands International",
+        "category": "E-commerce / Food",
+        "challenge": "Modernize the brand's digital presence while implementing an efficient and scalable ordering system that could handle traffic spikes.",
+        "solution": "EMB developed a Next.js architecture with SSR to optimize SEO and performance, integrated secure payment gateways, and designed an intuitive interface that reflects the brand's personality while facilitating conversion."
+      },
+      "learnIA": {
+        "title": "Learn AI",
+        "description": "Innovative educational platform developed by EMB that uses artificial intelligence to personalize the learning experience. The system analyzes each student's progress and learning style to adapt content, exercises, and assessments. Includes real-time collaboration tools, gamification system, and detailed performance analysis for students and educators.",
+        "client": "Digital Education Technology Institute",
+        "category": "Education / Technology",
+        "challenge": "Develop an educational platform that used AI to personalize learning while maintaining high scalability and ease of use for students and teachers.",
+        "solution": "EMB implemented a hybrid system with React on the frontend and PHP on the backend for AI data processing, creating adaptive learning algorithms and an intuitive interface that facilitates both teaching and learning."
+      },
+      "iphone": {
+        "title": "Apple iPhone 3D Animated Website",
+        "description": "Premium recreation of the iPhone 15 Pro website developed by EMB, which elevates the user experience through advanced GSAP animations and immersive 3D effects with Three.js. The site presents the product with smooth transitions, interactive 3D visualizations of the device, and a visual narrative that highlights the features of the product in an elegant and attractive way.",
+        "client": "Apple Inc. (Demo Project)",
+        "category": "Technology / Showcase",
+        "challenge": "Recreate the premium Apple experience with smooth animations and detailed 3D models without compromising performance on mid and low-end devices.",
+        "solution": "EMB used Next.js with TypeScript for a solid foundation, implemented Three.js for optimized 3D rendering with adaptive level of detail, and used GSAP for smooth animations with high resource efficiency."
+      }
+    },
     "title": "A small selection of",
     "subtitle": "recent projects",
     "exploreButton": "Explore project",

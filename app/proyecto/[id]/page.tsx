@@ -10,6 +10,8 @@ import { FloatingNav } from "@/components/ui/FloatingNavbar";
 import { navItems } from "@/data";
 import Footer from "@/components/Footer";
 import HomeButton from "@/components/ui/HomeButton";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { title } from "process";
 
 // Componente para efectos de partículas flotantes
 const FloatingParticles = () => {
@@ -40,6 +42,7 @@ const FloatingParticles = () => {
 
 // Componente para el hero del proyecto
 const ProjectHero = ({ proyecto }: { proyecto: any }) => {
+  const { t } = useLanguage();
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -60,7 +63,7 @@ const ProjectHero = ({ proyecto }: { proyecto: any }) => {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-purple via-blue-500 to-cyan-400 bg-clip-text text-transparent px-4 leading-tight"
         >
-          {proyecto.title}
+          {proyecto.titleKey ? t(proyecto.titleKey) : proyecto.title}
         </motion.h1>
         
         {/* Línea decorativa */}
@@ -78,7 +81,7 @@ const ProjectHero = ({ proyecto }: { proyecto: any }) => {
           transition={{ delay: 0.4, duration: 0.6 }}
           className="text-base sm:text-lg md:text-xl text-white-200 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-4"
         >
-          {proyecto.des}
+          {proyecto.desKey ? t(proyecto.desKey) : proyecto.des}
         </motion.p>
       </div>
     </motion.div>
@@ -87,6 +90,7 @@ const ProjectHero = ({ proyecto }: { proyecto: any }) => {
 
 // Componente para la galería de medios
 const MediaGallery = ({ proyecto }: { proyecto: any }) => {
+  const { t } = useLanguage();
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -99,7 +103,7 @@ const MediaGallery = ({ proyecto }: { proyecto: any }) => {
           // Video showcase para Peaky Blinders con título
           <div className="relative bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl w-full mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center bg-gradient-to-r from-purple via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-              Peaky Blinders
+              {proyecto.titleKey ? t(proyecto.titleKey) : proyecto.title}
             </h2>
             <div className="relative overflow-hidden rounded-2xl w-full mx-auto max-w-6xl">
               <div
@@ -122,7 +126,7 @@ const MediaGallery = ({ proyecto }: { proyecto: any }) => {
           // Video showcase para Dunkin Donuts con título
           <div className="relative bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl w-full mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center bg-gradient-to-r from-purple via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-              Dunkin Donuts
+              {proyecto.titleKey ? t(proyecto.titleKey) : proyecto.title}
             </h2>
             <div className="relative overflow-hidden rounded-2xl w-full mx-auto max-w-6xl">
               <div
@@ -145,7 +149,7 @@ const MediaGallery = ({ proyecto }: { proyecto: any }) => {
           // Video showcase para Dunkin Donuts con título
           <div className="relative bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl w-full mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center bg-gradient-to-r from-purple via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-              LearnIA
+              {proyecto.titleKey ? t(proyecto.titleKey) : proyecto.title}
             </h2>
             <div className="relative overflow-hidden rounded-2xl w-full mx-auto max-w-6xl">
               <div
@@ -168,7 +172,7 @@ const MediaGallery = ({ proyecto }: { proyecto: any }) => {
           // Video showcase para Iphone 15 Pro con título
           <div className="relative bg-gradient-to-br from-[#13162D] to-[#1a1f3d] p-6 md:p-10 rounded-3xl border border-white/10 shadow-2xl w-full mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center bg-gradient-to-r from-purple via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-              Iphone 15 Pro
+              {proyecto.titleKey ? t(proyecto.titleKey) : proyecto.title}
             </h2>
             <div className="relative overflow-hidden rounded-2xl w-full mx-auto max-w-6xl">
               <div
@@ -230,6 +234,7 @@ const MediaGallery = ({ proyecto }: { proyecto: any }) => {
 
 // Componente para las tecnologías
 const TechStack = ({ proyecto }: { proyecto: any }) => {
+  const { t } = useLanguage();
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -238,7 +243,7 @@ const TechStack = ({ proyecto }: { proyecto: any }) => {
       className="mb-20"
     >
       <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-purple to-cyan-400 bg-clip-text text-transparent">
-        Tecnologías Utilizadas
+        {t('projects.detail.techStack')}
       </h2>
       <div className="flex flex-wrap items-center justify-center gap-6">
         {proyecto.iconLists.map((icon: string, index: number) => (
@@ -269,22 +274,23 @@ const TechStack = ({ proyecto }: { proyecto: any }) => {
 
 // Componente para los detalles del proyecto
 const ProjectDetails = ({ proyecto }: { proyecto: any }) => {
+  const { t } = useLanguage(); 
   const details = [
     {
-      title: "Desafío",
-      content: proyecto.challenge || "Crear una solución innovadora que resuelva problemas reales del usuario, implementando las mejores prácticas de desarrollo y diseño UX/UI.",
+      title: t('projects.detail.challenge.title'),
+      content: proyecto.challengeKey ? t(proyecto.challengeKey) : (proyecto.challenge || t('projects.detail.challenge.defaultContent')),
       icon: "🎯",
       gradient: "from-red-500 to-orange-500"
     },
     {
-      title: "Solución",
-      content: proyecto.solution || "Desarrollo de una aplicación moderna utilizando tecnologías de vanguardia, con enfoque en la experiencia del usuario y la escalabilidad del sistema.",
+      title: t('projects.detail.solution.title'),
+      content: proyecto.solutionKey ? t(proyecto.solutionKey) : (proyecto.solution || t('projects.detail.solution.defaultContent')),
       icon: "💡",
       gradient: "from-yellow-500 to-orange-500"
     },
     {
-      title: "Resultados",
-      content: "Implementación exitosa que superó las expectativas del cliente, mejorando significativamente la experiencia del usuario y optimizando los procesos clave del negocio.",
+      title: t('projects.detail.results.title'),
+      content: proyecto.resultsKey ? t(proyecto.resultsKey) : (proyecto.results || t('projects.detail.results.defaultContent')),
       icon: "📈",
       gradient: "from-green-500 to-emerald-500"
     }
@@ -298,7 +304,7 @@ const ProjectDetails = ({ proyecto }: { proyecto: any }) => {
       className="mb-20"
     >
       <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-purple to-cyan-400 bg-clip-text text-transparent">
-        Detalles del Proyecto
+        {t('projects.detail.projectDetails')}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {details.map((detail, index) => (
@@ -329,6 +335,7 @@ const ProjectDetails = ({ proyecto }: { proyecto: any }) => {
 
 // Componente para los botones de acción
 const ActionButtons = ({ proyecto }: { proyecto: any }) => {
+  const { t } = useLanguage();
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -347,7 +354,7 @@ const ActionButtons = ({ proyecto }: { proyecto: any }) => {
         <div className="absolute -inset-1 bg-gradient-to-r from-purple to-cyan-400 rounded-full opacity-75 blur group-hover:opacity-100 transition duration-300"></div>
         <div className="relative flex items-center gap-3 bg-gradient-to-r from-purple to-blue-600 hover:from-purple/80 hover:to-blue-600/80 transition-all duration-300 text-white py-4 px-8 rounded-full shadow-lg">
           <FaExternalLinkAlt className="text-lg" />
-          <span className="text-lg font-semibold">Ver Proyecto</span>
+          <span className="text-lg font-semibold">{t('projects.detail.viewProject')}</span>
         </div>
       </motion.a>
       
@@ -363,7 +370,7 @@ const ActionButtons = ({ proyecto }: { proyecto: any }) => {
           <div className="absolute -inset-1 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full opacity-75 blur group-hover:opacity-100 transition duration-300"></div>
           <div className="relative flex items-center gap-3 bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-600 hover:to-gray-800 transition-all duration-300 text-white py-4 px-8 rounded-full shadow-lg">
             <FaGithub className="text-lg" />
-            <span className="text-lg font-semibold">Ver Código</span>
+            <span className="text-lg font-semibold">{t('projects.detail.viewCode')}</span>
           </div>
         </motion.a>
       )}
@@ -373,6 +380,7 @@ const ActionButtons = ({ proyecto }: { proyecto: any }) => {
 
 // Componente para la navegación entre proyectos
 const ProjectNavigation = ({ currentId }: { currentId: number }) => {
+  const { t } = useLanguage();
   const prevId = currentId > 1 ? currentId - 1 : projects.length;
   const nextId = currentId < projects.length ? currentId + 1 : 1;
 
@@ -400,7 +408,7 @@ const ProjectNavigation = ({ currentId }: { currentId: number }) => {
             clipRule="evenodd"
           />
         </svg>
-        <span className="text-white group-hover:text-white transition-colors duration-300">Anterior</span>
+        <span className="text-white group-hover:text-white transition-colors duration-300">{t('projects.detail.previousProject')}</span>
       </motion.a>
 
       <motion.a
@@ -408,7 +416,7 @@ const ProjectNavigation = ({ currentId }: { currentId: number }) => {
         whileHover={{ x: 10, scale: 1.05 }}
         className="group flex items-center bg-gradient-to-r from-[#13162D] to-[#1a1f3d] hover:from-[#1a1f3d] hover:to-[#252b4a] transition-all duration-300 py-4 px-6 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm"
       >
-        <span className="text-white group-hover:text-white transition-colors duration-300">Siguiente</span>
+        <span className="text-white group-hover:text-white transition-colors duration-300">{t('projects.detail.nextProject')}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 ml-3 text-purple group-hover:text-cyan-400 transition-colors duration-300"
@@ -427,6 +435,7 @@ const ProjectNavigation = ({ currentId }: { currentId: number }) => {
 };
 
 const ProyectoDetalle = () => {
+  const { t } = useLanguage();
   const params = useParams();
   const id = Number(params.id);
   const [mounted, setMounted] = useState(false);
@@ -447,7 +456,7 @@ const ProyectoDetalle = () => {
           className="text-center"
         >
           <h1 className="text-4xl font-bold text-white mb-4">404</h1>
-          <p className="text-xl text-white-200">Proyecto no encontrado</p>
+          <p className="text-xl text-white-200">{t('projects.detail.notFound')}</p>
         </motion.div>
       </div>
     );
